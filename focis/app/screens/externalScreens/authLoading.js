@@ -18,7 +18,7 @@ class AuthLoading extends Component {
       connection: null
     }
 
-    const authenticated = false;
+    const authenticated = true;
 
     if(authenticated) {
       this.setState({connection: "⚡Logging In⚡"})
