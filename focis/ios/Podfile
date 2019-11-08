@@ -40,6 +40,8 @@ target 'focis' do
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'focisTests' do
     inherit! :search_paths
     # Pods for testing
