@@ -13,7 +13,7 @@ import {
 
 import { Input, Icon } from 'react-native-elements';
 
-class App extends Component {
+class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default App;
+export default Login;

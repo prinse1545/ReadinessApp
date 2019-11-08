@@ -1,57 +1,18 @@
-
-
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TextInput
-} from 'react-native';
+  createStackNavigator,
+  createAppContainer,
+} from 'react-navigation';
 
-import { Input, Icon } from 'react-native-elements';
+import { AppNavigator } from './config/router';
 
-class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <TextInput
-         style={styles.input}
-         placeholder="School Email"
-         placeholderTextColor="#fff"
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="Password"
-         placeholderTextColor="#fff"
-         autoCompleteType="password"
-         secureTextEntry
-        />
-        <Text>Don't Have an Account?</Text>
-      </View>
-    )
-  }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#035096',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  input: {
-    height: 40,
-    fontFamily: 'Avenir',
-    color: 'white',
-    fontSize: 22,
-    backgroundColor: "transparent",
-    borderRadius: 10,
-    width: '80%',
-    borderBottomColor: '#fff'
-  }
-})
+let Navigation = createAppContainer(AppNavigator);
+
+const App = (props) => {
+  return (
+    <Navigation />
+  );
+};
 
 export default App;
