@@ -9,11 +9,14 @@ import {
 } from 'react-navigation-redux-helpers';
 
 import Login from '../screens/externalScreens/login';
+import Setup from '../screens/externalScreens/setup';
 
 
 
 const AuthStack = createStackNavigator({
-  Login: { screen: Login, navigationOptions: { header: null } }
+  Login: { screen: Login, navigationOptions: { header: null } },
+  Setup: { screen: Setup, navigationOptions: { header: null } }
+
 });
 
 const HomeStack = createStackNavigator({

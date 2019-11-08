@@ -1,25 +1,13 @@
-
-
 import React, { Component } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Image,
-  Text,
-  StatusBar,
   TextInput,
-  TouchableOpacity,
+  StyleSheet,
+  View,
+  Image
 } from 'react-native';
 
-import { Input, Icon } from 'react-native-elements';
-
-class Login extends Component {
-
-  addAccountPress = () => this.props.navigation.navigate("Setup");
+class Setup extends Component {
   render() {
-    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Image
@@ -33,18 +21,32 @@ class Login extends Component {
         />
         <TextInput
          style={styles.input}
+         placeholder="First Name"
+         placeholderTextColor="#fff"
+        />
+        <TextInput
+         style={styles.input}
+         placeholder="Last Name"
+         placeholderTextColor="#fff"
+        />
+        <TextInput
+         style={styles.input}
          placeholder="Password"
          placeholderTextColor="#fff"
          autoCompleteType="password"
          secureTextEntry
         />
-        <TouchableOpacity onPress={() => navigation.navigate("Setup")}>
-          <Text style={styles.addAccount}>Don't Have an Account?</Text>
-        </TouchableOpacity>
+        <TextInput
+         style={styles.input}
+         placeholder="Confirm Password"
+         placeholderTextColor="#fff"
+         autoCompleteType="password"
+         secureTextEntry
+        />
       </View>
-    )
+    );
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -69,12 +71,7 @@ const styles = StyleSheet.create({
     height: 170,
     width: 170,
     marginBottom: 50
-  },
-  addAccount: {
-    fontFamily: 'Avenir',
-    fontSize: 15,
-    color: '#fff'
   }
 })
 
-export default Login;
+export default Setup;
