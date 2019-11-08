@@ -10,6 +10,7 @@ import {
 
 import Login from '../screens/externalScreens/login';
 import Setup from '../screens/externalScreens/setup';
+import AuthLoading from '../screens/externalScreens/authLoading';
 
 
 
@@ -28,6 +29,7 @@ const HomeStack = createStackNavigator({
 
 export const  AppNavigator = createSwitchNavigator(
   {
+    AuthLoading: AuthLoading,
     App: { screen: HomeStack,
       navigationOptions: {
         header: null,
@@ -40,6 +42,6 @@ export const  AppNavigator = createSwitchNavigator(
     }}
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: 'AuthLoading',
   }
 );
