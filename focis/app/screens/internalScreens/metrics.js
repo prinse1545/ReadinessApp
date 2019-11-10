@@ -5,16 +5,13 @@ import {
   StyleSheet
 } from 'react-native';
 
-class Metrics extends Component {
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Metrics</Text>
-      </View>
-    );
-  }
-};
+const Metrics = ({navigation}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Metrics</Text>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

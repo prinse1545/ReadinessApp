@@ -5,16 +5,13 @@ import {
   StyleSheet
 } from 'react-native';
 
-class Profile extends Component {
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Profile</Text>
-      </View>
-    );
-  }
-};
+const Profile = ({navigation}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Profile</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

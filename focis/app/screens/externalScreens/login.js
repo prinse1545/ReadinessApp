@@ -15,36 +15,34 @@ import {
 
 import { Input, Icon } from 'react-native-elements';
 
-class Login extends Component {
+const Login = ({navigation}) => {
 
-  addAccountPress = () => this.props.navigation.navigate("Setup");
-  render() {
-    const { navigation } = this.props;
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{uri: 'https://focis19.s3-us-west-1.amazonaws.com/6e113411e7c6c475609d41e241d5ed54.png'}}
-          style={styles.logo}
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="School Email"
-         placeholderTextColor="#fff"
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="Password"
-         placeholderTextColor="#fff"
-         autoCompleteType="password"
-         secureTextEntry
-        />
-        <TouchableOpacity onPress={() => navigation.navigate("Setup")}>
-          <Text style={styles.addAccount}>Don't Have an Account?</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+
+  return (
+    <View style={styles.container}>
+      <Image
+        source={{uri: 'https://focis19.s3-us-west-1.amazonaws.com/6e113411e7c6c475609d41e241d5ed54.png'}}
+        style={styles.logo}
+      />
+      <TextInput
+       style={styles.input}
+       placeholder="School Email"
+       placeholderTextColor="#fff"
+      />
+      <TextInput
+       style={styles.input}
+       placeholder="Password"
+       placeholderTextColor="#fff"
+       autoCompleteType="password"
+       secureTextEntry
+      />
+      <TouchableOpacity onPress={() => navigation.navigate("Setup")}>
+        <Text style={styles.addAccount}>Don't Have an Account?</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
+
 
 const styles = StyleSheet.create({
   container: {

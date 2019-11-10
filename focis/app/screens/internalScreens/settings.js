@@ -5,16 +5,13 @@ import {
   StyleSheet
 } from 'react-native';
 
-class Settings extends Component {
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Settings</Text>
-      </View>
-    );
-  }
-};
+const Settings = ({navigation}) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Settings</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

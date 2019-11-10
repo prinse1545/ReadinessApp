@@ -6,47 +6,45 @@ import {
   Image
 } from 'react-native';
 
-class Setup extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{uri: 'https://focis19.s3-us-west-1.amazonaws.com/6e113411e7c6c475609d41e241d5ed54.png'}}
-          style={styles.logo}
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="School Email"
-         placeholderTextColor="#fff"
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="First Name"
-         placeholderTextColor="#fff"
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="Last Name"
-         placeholderTextColor="#fff"
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="Password"
-         placeholderTextColor="#fff"
-         autoCompleteType="password"
-         secureTextEntry
-        />
-        <TextInput
-         style={styles.input}
-         placeholder="Confirm Password"
-         placeholderTextColor="#fff"
-         autoCompleteType="password"
-         secureTextEntry
-        />
-      </View>
-    );
-  }
-};
+const Setup = ({navigation}) => {
+  return (
+    <View style={styles.container}>
+      <Image
+        source={{uri: 'https://focis19.s3-us-west-1.amazonaws.com/6e113411e7c6c475609d41e241d5ed54.png'}}
+        style={styles.logo}
+      />
+      <TextInput
+       style={styles.input}
+       placeholder="School Email"
+       placeholderTextColor="#fff"
+      />
+      <TextInput
+       style={styles.input}
+       placeholder="First Name"
+       placeholderTextColor="#fff"
+      />
+      <TextInput
+       style={styles.input}
+       placeholder="Last Name"
+       placeholderTextColor="#fff"
+      />
+      <TextInput
+       style={styles.input}
+       placeholder="Password"
+       placeholderTextColor="#fff"
+       autoCompleteType="password"
+       secureTextEntry
+      />
+      <TextInput
+       style={styles.input}
+       placeholder="Confirm Password"
+       placeholderTextColor="#fff"
+       autoCompleteType="password"
+       secureTextEntry
+      />
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
