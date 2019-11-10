@@ -10,7 +10,7 @@ class Metrics extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Settings</Text>
+        <Text style={styles.text}>Metrics</Text>
       </View>
     );
   }
