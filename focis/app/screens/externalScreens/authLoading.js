@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Pulse from 'react-native-pulse';
 import NetInfo from "@react-native-community/netinfo";
-// import AsyncStorage from '@react-native-community/async-storage';
+
 
 const AuthLoading = ({navigation}) => {
 
@@ -20,12 +20,12 @@ const AuthLoading = ({navigation}) => {
 
   useEffect(() => {
 
-    console.log(result)
-
+    console.log(result.data)
     if(result.fetching) {
       setConnection("Verifying")
     }
     else if(result.error) {
+
       setConnection("Not Authenticated")
       navigation.navigate("Auth")
     }

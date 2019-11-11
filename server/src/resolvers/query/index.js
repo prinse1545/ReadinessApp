@@ -5,6 +5,7 @@ const utils = require('../../utils')
 
 const APP_SECRET = utils["APP_SECRET"]
 
+
 function getUserId(parent, args, context, info) {
   const Authorization = context.request.get('Authorization')
   if (Authorization) {
