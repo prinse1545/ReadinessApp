@@ -36,8 +36,6 @@ const App = (props) => {
     }
   })
 
-  console.log("token", token)
-  console.log("client", client)
 
 
   return (
