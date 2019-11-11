@@ -5,7 +5,6 @@ import {
 } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AppNavigator } from './config/router';
-import { getToken } from './config/token'
 import { Provider as Urql, createClient } from 'urql';
 
 
