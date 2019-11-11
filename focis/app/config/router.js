@@ -14,7 +14,6 @@ import Icon from 'react-native-elements';
 import Login from '../screens/externalScreens/login';
 import Setup from '../screens/externalScreens/setup';
 import AuthLoading from '../screens/externalScreens/authLoading';
-import Metrics from '../screens/internalScreens/metrics';
 import Profile from '../screens/internalScreens/profile';
 import Settings from '../screens/internalScreens/settings';
 
@@ -26,10 +25,9 @@ const AuthStack = createStackNavigator({
 
 });
 
-const HomeTabs = createBottomTabNavigator({
-  Metrics: Metrics,
-  Profile: Profile,
-  Settings: Settings
+const HomeTabs = createStackNavigator({
+  Profile: {screen: Profile, navigationOptions: { header: null }},
+  Settings: {screen: Settings, navigationOptions: { header: null }}
 });
 
 
