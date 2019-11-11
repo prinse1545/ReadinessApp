@@ -6,7 +6,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { AppNavigator } from './config/router';
 import { getToken } from './config/token'
-import { Provider, createClient } from 'urql';
+import { Provider as Urql, createClient } from 'urql';
 
 
 
@@ -39,9 +39,9 @@ const App = (props) => {
 
 
   return (
-    <Provider value={client}>
+    <Urql value={client}>
       <Navigation />
-    </Provider>
+    </Urql>
   );
 };
 
