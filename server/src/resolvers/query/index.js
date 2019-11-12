@@ -20,6 +20,12 @@ function getUserId(parent, args, context, info) {
 
 function user(parent, args, context, info) {
 
+  const Authorization = context.request.get('Authorization')
+
+  if(!Authorization) {
+    throw new Error("Not Authenticated")
+  }
+
   const user = context.prisma.user({id: args.id})
 
   console.log(utils["APP_SECRET"])

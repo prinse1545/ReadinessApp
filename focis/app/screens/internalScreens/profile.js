@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -8,14 +8,31 @@ import {
   Dimensions,
   Alert
 } from 'react-native';
-
+import { useQuery } from 'urql'
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import { LineChart } from "react-native-chart-kit";
 
+const getUser = `
+query($id: ID){
+  user(id: $id) {
+    name
+    email
+  }
+}
+`
+
 const Profile = ({navigation}) => {
 
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState([]);
+
+  const[result, executeQuery] = useQuery(getUser);
+
+  useEffect(() => {
+    executeQuery({id: "ck2ru5gwt001e0701a4ekuf49"}).then((res) => {
+      console.log(res)
+    })
+  })
 
   const logout = () => {
 
@@ -32,7 +49,6 @@ const Profile = ({navigation}) => {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         {text: 'OK', onPress: () => logout()},

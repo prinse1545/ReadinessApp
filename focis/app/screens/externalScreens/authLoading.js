@@ -20,7 +20,6 @@ const AuthLoading = ({navigation}) => {
 
   useEffect(() => {
 
-    console.log(result.data)
     if(result.fetching) {
       setConnection("Verifying")
     }
