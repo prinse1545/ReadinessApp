@@ -5,19 +5,53 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native';
 
 import { Icon } from 'react-native-elements';
-
+import AsyncStorage from '@react-native-community/async-storage';
 import { LineChart } from "react-native-chart-kit";
 
 const Profile = ({navigation}) => {
 
   const [questions, setQuestions] = useState([])
 
+  const logout = () => {
+
+
+    AsyncStorage.removeItem('focis-auth-token').then((res) => {
+      navigation.navigate("Auth")
+    })
+  }
+
+  onLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Do you wish to logout?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => logout()},
+      ],
+      {cancelable: false},
+    );
+  }
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.settingsButtonContainer} onPress={() => onLogout()}>
+        <Icon
+          name='gear'
+          type='font-awesome'
+          color="#fff"
+          size={30}
+
+        />
+      </TouchableOpacity>
       <View style={styles.headerContainer}>
         <TouchableOpacity>
           <Image source={{uri: ""}} style={styles.profileImage} />
@@ -83,7 +117,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#035096',
     paddingTop: '13%',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 100
   },
   name: {
     fontFamily: 'Avenir',
@@ -117,7 +152,13 @@ const styles = StyleSheet.create({
     fontFamily: "Avenir",
     fontSize: 22,
     color: "#fff"
-  }
+  },
+  settingsButtonContainer: {
+    position: 'absolute',
+    top: 40,
+    right: 40
+  },
+
 
 })
 
