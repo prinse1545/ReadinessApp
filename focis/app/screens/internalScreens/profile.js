@@ -8,13 +8,13 @@ import {
   Dimensions,
   Alert
 } from 'react-native';
-import { useQuery } from 'urql'
+import { useQuery, query } from 'urql'
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import { LineChart } from "react-native-chart-kit";
 
 const getUser = `
-query($id: ID){
+query($id: String!){
   user(id: $id) {
     name
     email
@@ -25,13 +25,23 @@ query($id: ID){
 const Profile = ({navigation}) => {
 
   const [questions, setQuestions] = useState([]);
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
 
-  const[result, executeQuery] = useQuery(getUser);
+  const[result] = useQuery({
+    query: getUser,
+    variables: {id: "ck2ru5gwt001e0701a4ekuf49"}
+  });
 
   useEffect(() => {
-    executeQuery({id: "ck2ru5gwt001e0701a4ekuf49"}).then((res) => {
-      console.log(res)
-    })
+
+    if(result.data) {
+      const { name, email } = result.data.user;
+      setName(name)
+      setEmail(email)
+    }
+
+
   })
 
   const logout = () => {
@@ -72,7 +82,10 @@ const Profile = ({navigation}) => {
         <TouchableOpacity>
           <Image source={{uri: ""}} style={styles.profileImage} />
         </TouchableOpacity>
-        <Text style={styles.name}>First Name Last Name </Text>
+        <View>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.email}>{email}</Text>
+        </View>
       </View>
       <View style={styles.questionsContainer}>
         {
@@ -142,6 +155,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginLeft: 5
   },
+  email: {
+    fontFamily: 'Avenir',
+    fontSize: 18,
+    color: '#fff',
+    marginLeft: 5,
+    opacity: 0.5
+  },
   profileImage: {
     height: 80,
     width: 80,
@@ -152,11 +172,11 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: 'center',
-    justifyContent: 'center',
     borderBottomColor: "#fff",
     paddingBottom: '4%',
     borderBottomWidth: 2,
-    width: '100%'
+    width: '100%',
+    paddingLeft: '5%'
   },
   questionsContainer: {
     height: '20%',
