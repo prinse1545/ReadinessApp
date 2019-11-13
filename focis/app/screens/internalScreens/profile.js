@@ -12,6 +12,16 @@ import { useQuery, query } from 'urql'
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import { LineChart } from "react-native-chart-kit";
+import ImagePicker from 'react-native-image-picker';
+
+const options = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 const getUser = `
 query($id: String!){
@@ -27,8 +37,9 @@ const Profile = ({navigation}) => {
   const [questions, setQuestions] = useState([]);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
+  const [image, setImage] = useState(null);
 
-  const[result] = useQuery({
+  const [result] = useQuery({
     query: getUser,
     variables: {id: "ck2ru5gwt001e0701a4ekuf49"}
   });
@@ -52,7 +63,7 @@ const Profile = ({navigation}) => {
     })
   }
 
-  onLogout = () => {
+  const onLogout = () => {
     Alert.alert(
       'Logout',
       'Do you wish to logout?',
@@ -67,11 +78,33 @@ const Profile = ({navigation}) => {
     );
   }
 
+  const pickImage = () => {
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // const source = { uri: response.data };
+        console.log(source)
+
+        // setImage(source)
+      }
+    });
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.settingsButtonContainer} onPress={() => onLogout()}>
         <Icon
-          name='gear'
+          name='clear'
           type='font-awesome'
           color="#fff"
           size={30}
@@ -79,8 +112,8 @@ const Profile = ({navigation}) => {
         />
       </TouchableOpacity>
       <View style={styles.headerContainer}>
-        <TouchableOpacity>
-          <Image source={{uri: ""}} style={styles.profileImage} />
+        <TouchableOpacity onPress={() => pickImage()}>
+          <Image source={image} style={styles.profileImage} />
         </TouchableOpacity>
         <View>
           <Text style={styles.name}>{name}</Text>
@@ -123,7 +156,7 @@ const Profile = ({navigation}) => {
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
-            borderRadius: 16
+            borderRadius: 16,
           },
           propsForDots: {
             r: "6",
