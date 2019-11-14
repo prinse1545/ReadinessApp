@@ -34,10 +34,11 @@ query($id: String!){
 `
 
 const cards = [
-  {text: "hello"},
-  {text: "world"},
-  {text: "Check1"},
-  {text: "Check2"},
+  {text: "Describe your level of soreness today"},
+  {text: "How well did you sleep last night?"},
+  {text: "How well did you eat today?"},
+  {text: "How well did you feel during your workout?"},
+  {text: "How hydrated were you through the day?"}
 ]
 
 const Profile = ({navigation}) => {
@@ -61,6 +62,8 @@ const Profile = ({navigation}) => {
       setName(name)
       setEmail(email)
     }
+
+    setQuestions(cards)
 
 
   })
@@ -115,11 +118,10 @@ const Profile = ({navigation}) => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.settingsButtonContainer} onPress={() => onLogout()}>
         <Icon
-          name='clear'
+          name='gear'
           type='font-awesome'
           color="#fff"
           size={30}
-
         />
       </TouchableOpacity>
       <View style={styles.headerContainer}>
@@ -133,19 +135,17 @@ const Profile = ({navigation}) => {
       </View>
       <View style={styles.questionsContainer}>
         {
-          questions.length != 0 ?
+          questions.length == 0 ?
           <Text style={styles.noQuestionText}> No Questions at this Time</Text>
           :
           <Swiper showsButtons={false}>
-            <View>
-              <Card question="Hello World1" />
-            </View>
-            <View>
-              <Card question="Hello World2" />
-            </View>
-            <View>
-              <Card question="Hello World3" />
-            </View>
+            {
+              questions.map((card) => {
+                return (
+                  <Card question={card.text} />
+                )
+              })
+            }
           </Swiper>
         }
       </View>
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     paddingLeft: '5%'
   },
   questionsContainer: {
-    height: '20%',
+    height: '40%',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center'
