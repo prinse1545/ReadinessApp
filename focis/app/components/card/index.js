@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#fff",
     fontFamily: "Avenir",
-    fontSize: 28,
+    fontSize: 24,
     marginBottom: '10%'
   },
   container: {
@@ -47,12 +47,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   slider: {
-    width: '70%',
+    width: '75%',
 
   },
   sliderContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: -50
   }
 })
 

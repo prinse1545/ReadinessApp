@@ -68,6 +68,9 @@ const Profile = ({navigation}) => {
 
   })
 
+  const sliderChange = value => {
+    setValue(value)
+  }
 
   const logout = () => {
 
@@ -142,7 +145,9 @@ const Profile = ({navigation}) => {
             {
               questions.map((card) => {
                 return (
-                  <Card question={card.text} />
+                  <Card
+                   question={card.text}
+                  />
                 )
               })
             }
