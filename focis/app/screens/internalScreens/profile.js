@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Swiper from 'react-native-swiper';
 import {
   Text,
   View,
@@ -11,8 +12,8 @@ import {
 import { useQuery, query } from 'urql'
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
-import { LineChart } from "react-native-chart-kit";
 import ImagePicker from 'react-native-image-picker';
+import Card from '../../components/card/';
 
 const options = {
   title: 'Select Avatar',
@@ -32,12 +33,20 @@ query($id: String!){
 }
 `
 
+const cards = [
+  {text: "hello"},
+  {text: "world"},
+  {text: "Check1"},
+  {text: "Check2"},
+]
+
 const Profile = ({navigation}) => {
 
   const [questions, setQuestions] = useState([]);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [image, setImage] = useState(null);
+  const [value, setValue] = useState(null);
 
   const [result] = useQuery({
     query: getUser,
@@ -45,6 +54,7 @@ const Profile = ({navigation}) => {
   });
 
   useEffect(() => {
+
 
     if(result.data) {
       const { name, email } = result.data.user;
@@ -54,6 +64,7 @@ const Profile = ({navigation}) => {
 
 
   })
+
 
   const logout = () => {
 
@@ -122,54 +133,22 @@ const Profile = ({navigation}) => {
       </View>
       <View style={styles.questionsContainer}>
         {
-          questions.length == 0 ?
+          questions.length != 0 ?
           <Text style={styles.noQuestionText}> No Questions at this Time</Text>
           :
-          null
+          <Swiper showsButtons={false}>
+            <View>
+              <Card question="Hello World1" />
+            </View>
+            <View>
+              <Card question="Hello World2" />
+            </View>
+            <View>
+              <Card question="Hello World3" />
+            </View>
+          </Swiper>
         }
       </View>
-      <LineChart
-        data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
-          datasets: [
-            {
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
-              ]
-            }
-          ]
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={220}
-        yAxisLabel={"$"}
-        yAxisSuffix={"k"}
-        chartConfig={{
-          backgroundColor: '#035096',
-          backgroundGradientFrom: '#1E90FF',
-          backgroundGradientTo: "#ffa726",
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-          propsForDots: {
-            r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726"
-          }
-        }}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16
-        }}
-      />
     </View>
   );
 }
