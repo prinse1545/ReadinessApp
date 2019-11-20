@@ -27,7 +27,7 @@ const App = (props) => {
   })
 
   const client = createClient({
-    url: "http://localhost:4000",
+    url: "http://142.93.11.179:4000",
     fetchOptions: {
       headers: {
         Authorization: `${token}`,
