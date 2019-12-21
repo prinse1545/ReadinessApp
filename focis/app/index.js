@@ -6,6 +6,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { AppNavigator } from './config/router';
 import { Provider as Urql, createClient } from 'urql';
+import { Provider } from 'react-redux';
+import store from './config/store';
 
 
 
@@ -38,9 +40,11 @@ const App = (props) => {
 
 
   return (
-    <Urql value={client}>
-      <Navigation />
-    </Urql>
+    <Provider store={store}>
+      <Urql value={client}>
+        <Navigation />
+      </Urql>
+    </Provider>
   );
 };
 

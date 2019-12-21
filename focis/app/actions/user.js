@@ -1,9 +1,9 @@
 
 
-export const LOG_IN = "LOG_IN";
+export const SET_USER_ID = "SET_USER_ID";
 export const LOG_OUT = "LOG_OUT";
 
-export const setUser = user => {
+export const setUserId = userId => {
   return (dispatch) => {
     dispatch(logIn(user))
   }
@@ -19,6 +19,6 @@ const logOut = () => ({
 })
 
 const logIn = user => ({
-  type: LOG_IN,
-  user
+  type: SET_USER_ID,
+  id
 })

@@ -9,18 +9,32 @@ import {
 
 import { Icon } from 'react-native-elements';
 
-const Card = ({text, onPress}) => {
+const Card = ({text, onPress, disabled}) => {
 
-  return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.question}>{text}</Text>
-      <Icon
-        name="keyboard-arrow-right"
-        size={36}
-        color='#035096'
-      />
-    </TouchableOpacity>
-  )
+  if(disabled) {
+    return (
+      <TouchableOpacity style={styles.disabledContainer} onPress={onPress} disabled={disabled}>
+        <Text style={styles.question}>{text}</Text>
+        <Icon
+          name="keyboard-arrow-right"
+          size={36}
+          color='#035096'
+        />
+      </TouchableOpacity>
+    )
+  }
+  else {
+    return (
+      <TouchableOpacity style={styles.container} onPress={onPress} disabled={disabled}>
+        <Text style={styles.question}>{text}</Text>
+        <Icon
+          name="keyboard-arrow-right"
+          size={36}
+          color='#035096'
+        />
+      </TouchableOpacity>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -38,6 +52,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  disabledContainer: {
+    backgroundColor: '#fff',
+    height: 80,
+    width: 350,
+    borderRadius: 10,
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0.5
   }
 })
 

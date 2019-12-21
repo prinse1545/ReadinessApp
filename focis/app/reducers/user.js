@@ -1,5 +1,5 @@
 import {
-  LOG_IN,
+  SET_USER_ID,
   LOG_OUT
 } from '../actions/user.js'
 
@@ -8,10 +8,10 @@ const initialState = {
   email: null
 }
 
-const user = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch(action.type) {
-    case LOG_IN:
-      return {...state, id: action.user.id, email: action.user.emai}
+    case SET_USER_ID:
+      return {...state, id: action.id}
     case LOG_OUT:
       return {...state, id: null, email: null}
   }

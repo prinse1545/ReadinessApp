@@ -14,16 +14,9 @@ import { useQuery, query } from 'urql'
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
+import { useSelector, useDispatch } from 'react-redux';
 import Card from '../../components/card/';
 
-const options = {
-  title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
 
 const getUser = `
 query($id: String!){
@@ -42,6 +35,8 @@ const Profile = ({navigation}) => {
   const [email, setEmail] = useState(null);
   const [image, setImage] = useState(null);
   const [value, setValue] = useState(null);
+  const userId = useSelector(state => state);
+  console.log(userId)
 
   const [result] = useQuery({
     query: getUser,
@@ -107,15 +102,19 @@ const Profile = ({navigation}) => {
       <ScrollView contentContainerStyle={styles.questionsContainer}>
         <Card
           text="Rest & Readiness"
+          disabled={false}
         />
         <Card
           text="Fatigue"
+          disabled={false}
         />
         <Card
           text="Soreness"
+          disabled={false}
         />
         <Card
           text="Mental Stress"
+          disabled={false}
         />
       </ScrollView>
     </View>
@@ -176,5 +175,7 @@ const styles = StyleSheet.create({
 
 
 })
+
+
 
 export default Profile;

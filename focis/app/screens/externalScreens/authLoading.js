@@ -9,15 +9,17 @@ import {
 import Pulse from 'react-native-pulse';
 import NetInfo from "@react-native-community/netinfo";
 import { useSelector, useDispatch } from 'react-redux';
+import { setUserId } from '../../actions/user';
 
 
 const AuthLoading = ({navigation}) => {
 
   const [connection, setConnection] = useState(null);
-
+  const dispatch = useDispatch();
   const [result] = useQuery({
     query: `{ getUserId }`
   })
+
 
   useEffect(() => {
 
@@ -31,7 +33,7 @@ const AuthLoading = ({navigation}) => {
     }
     else if(result.data){
       setConnection("⚡Logging In⚡")
-      console.log(result.data)
+      dispatch(() => setUserId(result.data.getUserId))
       navigation.navigate("App")
     }
 
@@ -61,5 +63,6 @@ const styles = StyleSheet.create({
     fontSize: 22
   }
 })
+
 
 export default AuthLoading;
