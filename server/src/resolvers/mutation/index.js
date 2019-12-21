@@ -40,6 +40,17 @@ async function login(parent, args, context, info) {
   }
 }
 
+function createDay(parent, args, context, info) {
+  const Authorization = context.request.get('Authorization')
+
+  if(!Authorization) {
+    throw new Error("Not Authenticated")
+  }
+
+  context.prisma.createDay({ ...args })
+
+}
+
 
 module.exports = {
   signup,

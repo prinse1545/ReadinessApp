@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Pulse from 'react-native-pulse';
 import NetInfo from "@react-native-community/netinfo";
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const AuthLoading = ({navigation}) => {
@@ -30,6 +31,7 @@ const AuthLoading = ({navigation}) => {
     }
     else if(result.data){
       setConnection("⚡Logging In⚡")
+      console.log(result.data)
       navigation.navigate("App")
     }
 

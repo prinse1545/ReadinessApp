@@ -24,3 +24,20 @@ type User {
   name: String!
   email: String!
 }
+
+type Day {
+  id: ID!
+  userId: String!
+  hoursOfSleep: Float!
+  sleepQuality: Int!
+  trainingDay: Boolean!
+  fatigueLevel: Int!
+  soreness: [sorenessDay]
+  mentalStress: Int!
+}
+
+type sorenessDay {
+  id: ID!
+  bodyPart: String!
+  sorenessLevel: Int!
+}

@@ -9,52 +9,35 @@ import {
 
 import { Icon } from 'react-native-elements';
 
-const Card = ({question, value, onValueChange}) => {
+const Card = ({text, onPress}) => {
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.question}>{question}</Text>
-      <View style={styles.sliderContainer}>
-        <Slider
-          value={value}
-          onValueChange={value => onValueChange(value)}
-          thumbTintColor="#fff"
-          style = {styles.slider}
-        />
-        <TouchableOpacity>
-          <Icon
-           name="cloud-upload"
-           size={20}
-           reverse={true}
-           color="#1E90FF"
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Text style={styles.question}>{text}</Text>
+      <Icon
+        name="keyboard-arrow-right"
+        size={36}
+        color='#035096'
+      />
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   question: {
-    textAlign: "center",
-    color: "#fff",
+    color: '#035096',
     fontFamily: "Avenir",
-    fontSize: 24,
-    marginBottom: '10%'
+    fontSize: 24
   },
   container: {
-    paddingTop: '30%',
-    alignItems: 'center',
-  },
-  slider: {
-    width: '75%',
-
-  },
-  sliderContainer: {
+    backgroundColor: '#fff',
+    height: 80,
+    width: 350,
+    borderRadius: 10,
+    marginTop: 10,
     flexDirection: 'row',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: -50
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

@@ -34,9 +34,15 @@ function user(parent, args, context, info) {
 }
 
 function users(parent, args, context, info) {
+  const Authorization = context.request.get('Authorization')
+
+  if(!Authorization) {
+    throw new Error("Not Authenticated")
+  }
 
   return context.prisma.users()
 }
+
 
 module.exports = {
   users,

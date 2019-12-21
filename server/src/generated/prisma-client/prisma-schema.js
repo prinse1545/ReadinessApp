@@ -3,7 +3,15 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateDay {
+  count: Int!
+}
+
+type AggregatesorenessDay {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -11,15 +19,199 @@ type BatchPayload {
   count: Long!
 }
 
+type Day {
+  id: ID!
+  userId: String!
+  hoursOfSleep: Float!
+  sleepQuality: Int!
+  trainingDay: Boolean!
+  fatigueLevel: Int!
+  soreness(where: sorenessDayWhereInput, orderBy: sorenessDayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [sorenessDay!]
+  mentalStress: Int!
+}
+
+type DayConnection {
+  pageInfo: PageInfo!
+  edges: [DayEdge]!
+  aggregate: AggregateDay!
+}
+
+input DayCreateInput {
+  id: ID
+  userId: String!
+  hoursOfSleep: Float!
+  sleepQuality: Int!
+  trainingDay: Boolean!
+  fatigueLevel: Int!
+  soreness: sorenessDayCreateManyInput
+  mentalStress: Int!
+}
+
+type DayEdge {
+  node: Day!
+  cursor: String!
+}
+
+enum DayOrderByInput {
+  id_ASC
+  id_DESC
+  userId_ASC
+  userId_DESC
+  hoursOfSleep_ASC
+  hoursOfSleep_DESC
+  sleepQuality_ASC
+  sleepQuality_DESC
+  trainingDay_ASC
+  trainingDay_DESC
+  fatigueLevel_ASC
+  fatigueLevel_DESC
+  mentalStress_ASC
+  mentalStress_DESC
+}
+
+type DayPreviousValues {
+  id: ID!
+  userId: String!
+  hoursOfSleep: Float!
+  sleepQuality: Int!
+  trainingDay: Boolean!
+  fatigueLevel: Int!
+  mentalStress: Int!
+}
+
+type DaySubscriptionPayload {
+  mutation: MutationType!
+  node: Day
+  updatedFields: [String!]
+  previousValues: DayPreviousValues
+}
+
+input DaySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: DayWhereInput
+  AND: [DaySubscriptionWhereInput!]
+  OR: [DaySubscriptionWhereInput!]
+  NOT: [DaySubscriptionWhereInput!]
+}
+
+input DayUpdateInput {
+  userId: String
+  hoursOfSleep: Float
+  sleepQuality: Int
+  trainingDay: Boolean
+  fatigueLevel: Int
+  soreness: sorenessDayUpdateManyInput
+  mentalStress: Int
+}
+
+input DayUpdateManyMutationInput {
+  userId: String
+  hoursOfSleep: Float
+  sleepQuality: Int
+  trainingDay: Boolean
+  fatigueLevel: Int
+  mentalStress: Int
+}
+
+input DayWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  userId: String
+  userId_not: String
+  userId_in: [String!]
+  userId_not_in: [String!]
+  userId_lt: String
+  userId_lte: String
+  userId_gt: String
+  userId_gte: String
+  userId_contains: String
+  userId_not_contains: String
+  userId_starts_with: String
+  userId_not_starts_with: String
+  userId_ends_with: String
+  userId_not_ends_with: String
+  hoursOfSleep: Float
+  hoursOfSleep_not: Float
+  hoursOfSleep_in: [Float!]
+  hoursOfSleep_not_in: [Float!]
+  hoursOfSleep_lt: Float
+  hoursOfSleep_lte: Float
+  hoursOfSleep_gt: Float
+  hoursOfSleep_gte: Float
+  sleepQuality: Int
+  sleepQuality_not: Int
+  sleepQuality_in: [Int!]
+  sleepQuality_not_in: [Int!]
+  sleepQuality_lt: Int
+  sleepQuality_lte: Int
+  sleepQuality_gt: Int
+  sleepQuality_gte: Int
+  trainingDay: Boolean
+  trainingDay_not: Boolean
+  fatigueLevel: Int
+  fatigueLevel_not: Int
+  fatigueLevel_in: [Int!]
+  fatigueLevel_not_in: [Int!]
+  fatigueLevel_lt: Int
+  fatigueLevel_lte: Int
+  fatigueLevel_gt: Int
+  fatigueLevel_gte: Int
+  soreness_every: sorenessDayWhereInput
+  soreness_some: sorenessDayWhereInput
+  soreness_none: sorenessDayWhereInput
+  mentalStress: Int
+  mentalStress_not: Int
+  mentalStress_in: [Int!]
+  mentalStress_not_in: [Int!]
+  mentalStress_lt: Int
+  mentalStress_lte: Int
+  mentalStress_gt: Int
+  mentalStress_gte: Int
+  AND: [DayWhereInput!]
+  OR: [DayWhereInput!]
+  NOT: [DayWhereInput!]
+}
+
+input DayWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createDay(data: DayCreateInput!): Day!
+  updateDay(data: DayUpdateInput!, where: DayWhereUniqueInput!): Day
+  updateManyDays(data: DayUpdateManyMutationInput!, where: DayWhereInput): BatchPayload!
+  upsertDay(where: DayWhereUniqueInput!, create: DayCreateInput!, update: DayUpdateInput!): Day!
+  deleteDay(where: DayWhereUniqueInput!): Day
+  deleteManyDays(where: DayWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createsorenessDay(data: sorenessDayCreateInput!): sorenessDay!
+  updatesorenessDay(data: sorenessDayUpdateInput!, where: sorenessDayWhereUniqueInput!): sorenessDay
+  updateManysorenessDays(data: sorenessDayUpdateManyMutationInput!, where: sorenessDayWhereInput): BatchPayload!
+  upsertsorenessDay(where: sorenessDayWhereUniqueInput!, create: sorenessDayCreateInput!, update: sorenessDayUpdateInput!): sorenessDay!
+  deletesorenessDay(where: sorenessDayWhereUniqueInput!): sorenessDay
+  deleteManysorenessDays(where: sorenessDayWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -40,14 +232,219 @@ type PageInfo {
 }
 
 type Query {
+  day(where: DayWhereUniqueInput!): Day
+  days(where: DayWhereInput, orderBy: DayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Day]!
+  daysConnection(where: DayWhereInput, orderBy: DayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DayConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  sorenessDay(where: sorenessDayWhereUniqueInput!): sorenessDay
+  sorenessDays(where: sorenessDayWhereInput, orderBy: sorenessDayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [sorenessDay]!
+  sorenessDaysConnection(where: sorenessDayWhereInput, orderBy: sorenessDayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): sorenessDayConnection!
   node(id: ID!): Node
 }
 
+type sorenessDay {
+  id: ID!
+  bodyPart: String!
+  sorenessLevel: Int!
+}
+
+type sorenessDayConnection {
+  pageInfo: PageInfo!
+  edges: [sorenessDayEdge]!
+  aggregate: AggregatesorenessDay!
+}
+
+input sorenessDayCreateInput {
+  id: ID
+  bodyPart: String!
+  sorenessLevel: Int!
+}
+
+input sorenessDayCreateManyInput {
+  create: [sorenessDayCreateInput!]
+  connect: [sorenessDayWhereUniqueInput!]
+}
+
+type sorenessDayEdge {
+  node: sorenessDay!
+  cursor: String!
+}
+
+enum sorenessDayOrderByInput {
+  id_ASC
+  id_DESC
+  bodyPart_ASC
+  bodyPart_DESC
+  sorenessLevel_ASC
+  sorenessLevel_DESC
+}
+
+type sorenessDayPreviousValues {
+  id: ID!
+  bodyPart: String!
+  sorenessLevel: Int!
+}
+
+input sorenessDayScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  bodyPart: String
+  bodyPart_not: String
+  bodyPart_in: [String!]
+  bodyPart_not_in: [String!]
+  bodyPart_lt: String
+  bodyPart_lte: String
+  bodyPart_gt: String
+  bodyPart_gte: String
+  bodyPart_contains: String
+  bodyPart_not_contains: String
+  bodyPart_starts_with: String
+  bodyPart_not_starts_with: String
+  bodyPart_ends_with: String
+  bodyPart_not_ends_with: String
+  sorenessLevel: Int
+  sorenessLevel_not: Int
+  sorenessLevel_in: [Int!]
+  sorenessLevel_not_in: [Int!]
+  sorenessLevel_lt: Int
+  sorenessLevel_lte: Int
+  sorenessLevel_gt: Int
+  sorenessLevel_gte: Int
+  AND: [sorenessDayScalarWhereInput!]
+  OR: [sorenessDayScalarWhereInput!]
+  NOT: [sorenessDayScalarWhereInput!]
+}
+
+type sorenessDaySubscriptionPayload {
+  mutation: MutationType!
+  node: sorenessDay
+  updatedFields: [String!]
+  previousValues: sorenessDayPreviousValues
+}
+
+input sorenessDaySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: sorenessDayWhereInput
+  AND: [sorenessDaySubscriptionWhereInput!]
+  OR: [sorenessDaySubscriptionWhereInput!]
+  NOT: [sorenessDaySubscriptionWhereInput!]
+}
+
+input sorenessDayUpdateDataInput {
+  bodyPart: String
+  sorenessLevel: Int
+}
+
+input sorenessDayUpdateInput {
+  bodyPart: String
+  sorenessLevel: Int
+}
+
+input sorenessDayUpdateManyDataInput {
+  bodyPart: String
+  sorenessLevel: Int
+}
+
+input sorenessDayUpdateManyInput {
+  create: [sorenessDayCreateInput!]
+  update: [sorenessDayUpdateWithWhereUniqueNestedInput!]
+  upsert: [sorenessDayUpsertWithWhereUniqueNestedInput!]
+  delete: [sorenessDayWhereUniqueInput!]
+  connect: [sorenessDayWhereUniqueInput!]
+  set: [sorenessDayWhereUniqueInput!]
+  disconnect: [sorenessDayWhereUniqueInput!]
+  deleteMany: [sorenessDayScalarWhereInput!]
+  updateMany: [sorenessDayUpdateManyWithWhereNestedInput!]
+}
+
+input sorenessDayUpdateManyMutationInput {
+  bodyPart: String
+  sorenessLevel: Int
+}
+
+input sorenessDayUpdateManyWithWhereNestedInput {
+  where: sorenessDayScalarWhereInput!
+  data: sorenessDayUpdateManyDataInput!
+}
+
+input sorenessDayUpdateWithWhereUniqueNestedInput {
+  where: sorenessDayWhereUniqueInput!
+  data: sorenessDayUpdateDataInput!
+}
+
+input sorenessDayUpsertWithWhereUniqueNestedInput {
+  where: sorenessDayWhereUniqueInput!
+  update: sorenessDayUpdateDataInput!
+  create: sorenessDayCreateInput!
+}
+
+input sorenessDayWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  bodyPart: String
+  bodyPart_not: String
+  bodyPart_in: [String!]
+  bodyPart_not_in: [String!]
+  bodyPart_lt: String
+  bodyPart_lte: String
+  bodyPart_gt: String
+  bodyPart_gte: String
+  bodyPart_contains: String
+  bodyPart_not_contains: String
+  bodyPart_starts_with: String
+  bodyPart_not_starts_with: String
+  bodyPart_ends_with: String
+  bodyPart_not_ends_with: String
+  sorenessLevel: Int
+  sorenessLevel_not: Int
+  sorenessLevel_in: [Int!]
+  sorenessLevel_not_in: [Int!]
+  sorenessLevel_lt: Int
+  sorenessLevel_lte: Int
+  sorenessLevel_gt: Int
+  sorenessLevel_gte: Int
+  AND: [sorenessDayWhereInput!]
+  OR: [sorenessDayWhereInput!]
+  NOT: [sorenessDayWhereInput!]
+}
+
+input sorenessDayWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
+  day(where: DaySubscriptionWhereInput): DaySubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  sorenessDay(where: sorenessDaySubscriptionWhereInput): sorenessDaySubscriptionPayload
 }
 
 type User {

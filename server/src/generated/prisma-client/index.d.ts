@@ -16,7 +16,9 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  day: (where?: DayWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
+  sorenessDay: (where?: sorenessDayWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -38,6 +40,25 @@ export interface Prisma {
    * Queries
    */
 
+  day: (where: DayWhereUniqueInput) => DayNullablePromise;
+  days: (args?: {
+    where?: DayWhereInput;
+    orderBy?: DayOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Day>;
+  daysConnection: (args?: {
+    where?: DayWhereInput;
+    orderBy?: DayOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => DayConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -57,12 +78,49 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => UserConnectionPromise;
+  sorenessDay: (
+    where: sorenessDayWhereUniqueInput
+  ) => sorenessDayNullablePromise;
+  sorenessDays: (args?: {
+    where?: sorenessDayWhereInput;
+    orderBy?: sorenessDayOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<sorenessDay>;
+  sorenessDaysConnection: (args?: {
+    where?: sorenessDayWhereInput;
+    orderBy?: sorenessDayOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => sorenessDayConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
    * Mutations
    */
 
+  createDay: (data: DayCreateInput) => DayPromise;
+  updateDay: (args: {
+    data: DayUpdateInput;
+    where: DayWhereUniqueInput;
+  }) => DayPromise;
+  updateManyDays: (args: {
+    data: DayUpdateManyMutationInput;
+    where?: DayWhereInput;
+  }) => BatchPayloadPromise;
+  upsertDay: (args: {
+    where: DayWhereUniqueInput;
+    create: DayCreateInput;
+    update: DayUpdateInput;
+  }) => DayPromise;
+  deleteDay: (where: DayWhereUniqueInput) => DayPromise;
+  deleteManyDays: (where?: DayWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -79,6 +137,24 @@ export interface Prisma {
   }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  createsorenessDay: (data: sorenessDayCreateInput) => sorenessDayPromise;
+  updatesorenessDay: (args: {
+    data: sorenessDayUpdateInput;
+    where: sorenessDayWhereUniqueInput;
+  }) => sorenessDayPromise;
+  updateManysorenessDays: (args: {
+    data: sorenessDayUpdateManyMutationInput;
+    where?: sorenessDayWhereInput;
+  }) => BatchPayloadPromise;
+  upsertsorenessDay: (args: {
+    where: sorenessDayWhereUniqueInput;
+    create: sorenessDayCreateInput;
+    update: sorenessDayUpdateInput;
+  }) => sorenessDayPromise;
+  deletesorenessDay: (where: sorenessDayWhereUniqueInput) => sorenessDayPromise;
+  deleteManysorenessDays: (
+    where?: sorenessDayWhereInput
+  ) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -88,9 +164,15 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  day: (
+    where?: DaySubscriptionWhereInput
+  ) => DaySubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
+  sorenessDay: (
+    where?: sorenessDaySubscriptionWhereInput
+  ) => sorenessDaySubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -100,6 +182,30 @@ export interface ClientConstructor<T> {
 /**
  * Types
  */
+
+export type sorenessDayOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "bodyPart_ASC"
+  | "bodyPart_DESC"
+  | "sorenessLevel_ASC"
+  | "sorenessLevel_DESC";
+
+export type DayOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "userId_ASC"
+  | "userId_DESC"
+  | "hoursOfSleep_ASC"
+  | "hoursOfSleep_DESC"
+  | "sleepQuality_ASC"
+  | "sleepQuality_DESC"
+  | "trainingDay_ASC"
+  | "trainingDay_DESC"
+  | "fatigueLevel_ASC"
+  | "fatigueLevel_DESC"
+  | "mentalStress_ASC"
+  | "mentalStress_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -112,6 +218,123 @@ export type UserOrderByInput =
   | "password_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
+export type DayWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface sorenessDayWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  bodyPart?: Maybe<String>;
+  bodyPart_not?: Maybe<String>;
+  bodyPart_in?: Maybe<String[] | String>;
+  bodyPart_not_in?: Maybe<String[] | String>;
+  bodyPart_lt?: Maybe<String>;
+  bodyPart_lte?: Maybe<String>;
+  bodyPart_gt?: Maybe<String>;
+  bodyPart_gte?: Maybe<String>;
+  bodyPart_contains?: Maybe<String>;
+  bodyPart_not_contains?: Maybe<String>;
+  bodyPart_starts_with?: Maybe<String>;
+  bodyPart_not_starts_with?: Maybe<String>;
+  bodyPart_ends_with?: Maybe<String>;
+  bodyPart_not_ends_with?: Maybe<String>;
+  sorenessLevel?: Maybe<Int>;
+  sorenessLevel_not?: Maybe<Int>;
+  sorenessLevel_in?: Maybe<Int[] | Int>;
+  sorenessLevel_not_in?: Maybe<Int[] | Int>;
+  sorenessLevel_lt?: Maybe<Int>;
+  sorenessLevel_lte?: Maybe<Int>;
+  sorenessLevel_gt?: Maybe<Int>;
+  sorenessLevel_gte?: Maybe<Int>;
+  AND?: Maybe<sorenessDayWhereInput[] | sorenessDayWhereInput>;
+  OR?: Maybe<sorenessDayWhereInput[] | sorenessDayWhereInput>;
+  NOT?: Maybe<sorenessDayWhereInput[] | sorenessDayWhereInput>;
+}
+
+export interface DayWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  userId?: Maybe<String>;
+  userId_not?: Maybe<String>;
+  userId_in?: Maybe<String[] | String>;
+  userId_not_in?: Maybe<String[] | String>;
+  userId_lt?: Maybe<String>;
+  userId_lte?: Maybe<String>;
+  userId_gt?: Maybe<String>;
+  userId_gte?: Maybe<String>;
+  userId_contains?: Maybe<String>;
+  userId_not_contains?: Maybe<String>;
+  userId_starts_with?: Maybe<String>;
+  userId_not_starts_with?: Maybe<String>;
+  userId_ends_with?: Maybe<String>;
+  userId_not_ends_with?: Maybe<String>;
+  hoursOfSleep?: Maybe<Float>;
+  hoursOfSleep_not?: Maybe<Float>;
+  hoursOfSleep_in?: Maybe<Float[] | Float>;
+  hoursOfSleep_not_in?: Maybe<Float[] | Float>;
+  hoursOfSleep_lt?: Maybe<Float>;
+  hoursOfSleep_lte?: Maybe<Float>;
+  hoursOfSleep_gt?: Maybe<Float>;
+  hoursOfSleep_gte?: Maybe<Float>;
+  sleepQuality?: Maybe<Int>;
+  sleepQuality_not?: Maybe<Int>;
+  sleepQuality_in?: Maybe<Int[] | Int>;
+  sleepQuality_not_in?: Maybe<Int[] | Int>;
+  sleepQuality_lt?: Maybe<Int>;
+  sleepQuality_lte?: Maybe<Int>;
+  sleepQuality_gt?: Maybe<Int>;
+  sleepQuality_gte?: Maybe<Int>;
+  trainingDay?: Maybe<Boolean>;
+  trainingDay_not?: Maybe<Boolean>;
+  fatigueLevel?: Maybe<Int>;
+  fatigueLevel_not?: Maybe<Int>;
+  fatigueLevel_in?: Maybe<Int[] | Int>;
+  fatigueLevel_not_in?: Maybe<Int[] | Int>;
+  fatigueLevel_lt?: Maybe<Int>;
+  fatigueLevel_lte?: Maybe<Int>;
+  fatigueLevel_gt?: Maybe<Int>;
+  fatigueLevel_gte?: Maybe<Int>;
+  soreness_every?: Maybe<sorenessDayWhereInput>;
+  soreness_some?: Maybe<sorenessDayWhereInput>;
+  soreness_none?: Maybe<sorenessDayWhereInput>;
+  mentalStress?: Maybe<Int>;
+  mentalStress_not?: Maybe<Int>;
+  mentalStress_in?: Maybe<Int[] | Int>;
+  mentalStress_not_in?: Maybe<Int[] | Int>;
+  mentalStress_lt?: Maybe<Int>;
+  mentalStress_lte?: Maybe<Int>;
+  mentalStress_gt?: Maybe<Int>;
+  mentalStress_gte?: Maybe<Int>;
+  AND?: Maybe<DayWhereInput[] | DayWhereInput>;
+  OR?: Maybe<DayWhereInput[] | DayWhereInput>;
+  NOT?: Maybe<DayWhereInput[] | DayWhereInput>;
+}
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
@@ -180,6 +403,144 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
+export type sorenessDayWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface DayCreateInput {
+  id?: Maybe<ID_Input>;
+  userId: String;
+  hoursOfSleep: Float;
+  sleepQuality: Int;
+  trainingDay: Boolean;
+  fatigueLevel: Int;
+  soreness?: Maybe<sorenessDayCreateManyInput>;
+  mentalStress: Int;
+}
+
+export interface sorenessDayCreateManyInput {
+  create?: Maybe<sorenessDayCreateInput[] | sorenessDayCreateInput>;
+  connect?: Maybe<sorenessDayWhereUniqueInput[] | sorenessDayWhereUniqueInput>;
+}
+
+export interface sorenessDayCreateInput {
+  id?: Maybe<ID_Input>;
+  bodyPart: String;
+  sorenessLevel: Int;
+}
+
+export interface DayUpdateInput {
+  userId?: Maybe<String>;
+  hoursOfSleep?: Maybe<Float>;
+  sleepQuality?: Maybe<Int>;
+  trainingDay?: Maybe<Boolean>;
+  fatigueLevel?: Maybe<Int>;
+  soreness?: Maybe<sorenessDayUpdateManyInput>;
+  mentalStress?: Maybe<Int>;
+}
+
+export interface sorenessDayUpdateManyInput {
+  create?: Maybe<sorenessDayCreateInput[] | sorenessDayCreateInput>;
+  update?: Maybe<
+    | sorenessDayUpdateWithWhereUniqueNestedInput[]
+    | sorenessDayUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | sorenessDayUpsertWithWhereUniqueNestedInput[]
+    | sorenessDayUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<sorenessDayWhereUniqueInput[] | sorenessDayWhereUniqueInput>;
+  connect?: Maybe<sorenessDayWhereUniqueInput[] | sorenessDayWhereUniqueInput>;
+  set?: Maybe<sorenessDayWhereUniqueInput[] | sorenessDayWhereUniqueInput>;
+  disconnect?: Maybe<
+    sorenessDayWhereUniqueInput[] | sorenessDayWhereUniqueInput
+  >;
+  deleteMany?: Maybe<
+    sorenessDayScalarWhereInput[] | sorenessDayScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | sorenessDayUpdateManyWithWhereNestedInput[]
+    | sorenessDayUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface sorenessDayUpdateWithWhereUniqueNestedInput {
+  where: sorenessDayWhereUniqueInput;
+  data: sorenessDayUpdateDataInput;
+}
+
+export interface sorenessDayUpdateDataInput {
+  bodyPart?: Maybe<String>;
+  sorenessLevel?: Maybe<Int>;
+}
+
+export interface sorenessDayUpsertWithWhereUniqueNestedInput {
+  where: sorenessDayWhereUniqueInput;
+  update: sorenessDayUpdateDataInput;
+  create: sorenessDayCreateInput;
+}
+
+export interface sorenessDayScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  bodyPart?: Maybe<String>;
+  bodyPart_not?: Maybe<String>;
+  bodyPart_in?: Maybe<String[] | String>;
+  bodyPart_not_in?: Maybe<String[] | String>;
+  bodyPart_lt?: Maybe<String>;
+  bodyPart_lte?: Maybe<String>;
+  bodyPart_gt?: Maybe<String>;
+  bodyPart_gte?: Maybe<String>;
+  bodyPart_contains?: Maybe<String>;
+  bodyPart_not_contains?: Maybe<String>;
+  bodyPart_starts_with?: Maybe<String>;
+  bodyPart_not_starts_with?: Maybe<String>;
+  bodyPart_ends_with?: Maybe<String>;
+  bodyPart_not_ends_with?: Maybe<String>;
+  sorenessLevel?: Maybe<Int>;
+  sorenessLevel_not?: Maybe<Int>;
+  sorenessLevel_in?: Maybe<Int[] | Int>;
+  sorenessLevel_not_in?: Maybe<Int[] | Int>;
+  sorenessLevel_lt?: Maybe<Int>;
+  sorenessLevel_lte?: Maybe<Int>;
+  sorenessLevel_gt?: Maybe<Int>;
+  sorenessLevel_gte?: Maybe<Int>;
+  AND?: Maybe<sorenessDayScalarWhereInput[] | sorenessDayScalarWhereInput>;
+  OR?: Maybe<sorenessDayScalarWhereInput[] | sorenessDayScalarWhereInput>;
+  NOT?: Maybe<sorenessDayScalarWhereInput[] | sorenessDayScalarWhereInput>;
+}
+
+export interface sorenessDayUpdateManyWithWhereNestedInput {
+  where: sorenessDayScalarWhereInput;
+  data: sorenessDayUpdateManyDataInput;
+}
+
+export interface sorenessDayUpdateManyDataInput {
+  bodyPart?: Maybe<String>;
+  sorenessLevel?: Maybe<Int>;
+}
+
+export interface DayUpdateManyMutationInput {
+  userId?: Maybe<String>;
+  hoursOfSleep?: Maybe<Float>;
+  sleepQuality?: Maybe<Int>;
+  trainingDay?: Maybe<Boolean>;
+  fatigueLevel?: Maybe<Int>;
+  mentalStress?: Maybe<Int>;
+}
+
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
@@ -199,6 +560,27 @@ export interface UserUpdateManyMutationInput {
   password?: Maybe<String>;
 }
 
+export interface sorenessDayUpdateInput {
+  bodyPart?: Maybe<String>;
+  sorenessLevel?: Maybe<Int>;
+}
+
+export interface sorenessDayUpdateManyMutationInput {
+  bodyPart?: Maybe<String>;
+  sorenessLevel?: Maybe<Int>;
+}
+
+export interface DaySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<DayWhereInput>;
+  AND?: Maybe<DaySubscriptionWhereInput[] | DaySubscriptionWhereInput>;
+  OR?: Maybe<DaySubscriptionWhereInput[] | DaySubscriptionWhereInput>;
+  NOT?: Maybe<DaySubscriptionWhereInput[] | DaySubscriptionWhereInput>;
+}
+
 export interface UserSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -210,8 +592,199 @@ export interface UserSubscriptionWhereInput {
   NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
 }
 
+export interface sorenessDaySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<sorenessDayWhereInput>;
+  AND?: Maybe<
+    sorenessDaySubscriptionWhereInput[] | sorenessDaySubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    sorenessDaySubscriptionWhereInput[] | sorenessDaySubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    sorenessDaySubscriptionWhereInput[] | sorenessDaySubscriptionWhereInput
+  >;
+}
+
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface Day {
+  id: ID_Output;
+  userId: String;
+  hoursOfSleep: Float;
+  sleepQuality: Int;
+  trainingDay: Boolean;
+  fatigueLevel: Int;
+  mentalStress: Int;
+}
+
+export interface DayPromise extends Promise<Day>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  userId: () => Promise<String>;
+  hoursOfSleep: () => Promise<Float>;
+  sleepQuality: () => Promise<Int>;
+  trainingDay: () => Promise<Boolean>;
+  fatigueLevel: () => Promise<Int>;
+  soreness: <T = FragmentableArray<sorenessDay>>(args?: {
+    where?: sorenessDayWhereInput;
+    orderBy?: sorenessDayOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  mentalStress: () => Promise<Int>;
+}
+
+export interface DaySubscription
+  extends Promise<AsyncIterator<Day>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  userId: () => Promise<AsyncIterator<String>>;
+  hoursOfSleep: () => Promise<AsyncIterator<Float>>;
+  sleepQuality: () => Promise<AsyncIterator<Int>>;
+  trainingDay: () => Promise<AsyncIterator<Boolean>>;
+  fatigueLevel: () => Promise<AsyncIterator<Int>>;
+  soreness: <T = Promise<AsyncIterator<sorenessDaySubscription>>>(args?: {
+    where?: sorenessDayWhereInput;
+    orderBy?: sorenessDayOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  mentalStress: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface DayNullablePromise extends Promise<Day | null>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  userId: () => Promise<String>;
+  hoursOfSleep: () => Promise<Float>;
+  sleepQuality: () => Promise<Int>;
+  trainingDay: () => Promise<Boolean>;
+  fatigueLevel: () => Promise<Int>;
+  soreness: <T = FragmentableArray<sorenessDay>>(args?: {
+    where?: sorenessDayWhereInput;
+    orderBy?: sorenessDayOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  mentalStress: () => Promise<Int>;
+}
+
+export interface sorenessDay {
+  id: ID_Output;
+  bodyPart: String;
+  sorenessLevel: Int;
+}
+
+export interface sorenessDayPromise extends Promise<sorenessDay>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  bodyPart: () => Promise<String>;
+  sorenessLevel: () => Promise<Int>;
+}
+
+export interface sorenessDaySubscription
+  extends Promise<AsyncIterator<sorenessDay>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  bodyPart: () => Promise<AsyncIterator<String>>;
+  sorenessLevel: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface sorenessDayNullablePromise
+  extends Promise<sorenessDay | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  bodyPart: () => Promise<String>;
+  sorenessLevel: () => Promise<Int>;
+}
+
+export interface DayConnection {
+  pageInfo: PageInfo;
+  edges: DayEdge[];
+}
+
+export interface DayConnectionPromise
+  extends Promise<DayConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<DayEdge>>() => T;
+  aggregate: <T = AggregateDayPromise>() => T;
+}
+
+export interface DayConnectionSubscription
+  extends Promise<AsyncIterator<DayConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<DayEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateDaySubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface DayEdge {
+  node: Day;
+  cursor: String;
+}
+
+export interface DayEdgePromise extends Promise<DayEdge>, Fragmentable {
+  node: <T = DayPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface DayEdgeSubscription
+  extends Promise<AsyncIterator<DayEdge>>,
+    Fragmentable {
+  node: <T = DaySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateDay {
+  count: Int;
+}
+
+export interface AggregateDayPromise
+  extends Promise<AggregateDay>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateDaySubscription
+  extends Promise<AsyncIterator<AggregateDay>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface User {
@@ -267,29 +840,6 @@ export interface UserConnectionSubscription
   aggregate: <T = AggregateUserSubscription>() => T;
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
 export interface UserEdge {
   node: User;
   cursor: String;
@@ -323,6 +873,62 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface sorenessDayConnection {
+  pageInfo: PageInfo;
+  edges: sorenessDayEdge[];
+}
+
+export interface sorenessDayConnectionPromise
+  extends Promise<sorenessDayConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<sorenessDayEdge>>() => T;
+  aggregate: <T = AggregatesorenessDayPromise>() => T;
+}
+
+export interface sorenessDayConnectionSubscription
+  extends Promise<AsyncIterator<sorenessDayConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<sorenessDayEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatesorenessDaySubscription>() => T;
+}
+
+export interface sorenessDayEdge {
+  node: sorenessDay;
+  cursor: String;
+}
+
+export interface sorenessDayEdgePromise
+  extends Promise<sorenessDayEdge>,
+    Fragmentable {
+  node: <T = sorenessDayPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface sorenessDayEdgeSubscription
+  extends Promise<AsyncIterator<sorenessDayEdge>>,
+    Fragmentable {
+  node: <T = sorenessDaySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregatesorenessDay {
+  count: Int;
+}
+
+export interface AggregatesorenessDayPromise
+  extends Promise<AggregatesorenessDay>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatesorenessDaySubscription
+  extends Promise<AsyncIterator<AggregatesorenessDay>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface BatchPayload {
   count: Long;
 }
@@ -337,6 +943,65 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface DaySubscriptionPayload {
+  mutation: MutationType;
+  node: Day;
+  updatedFields: String[];
+  previousValues: DayPreviousValues;
+}
+
+export interface DaySubscriptionPayloadPromise
+  extends Promise<DaySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = DayPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = DayPreviousValuesPromise>() => T;
+}
+
+export interface DaySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<DaySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = DaySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = DayPreviousValuesSubscription>() => T;
+}
+
+export interface DayPreviousValues {
+  id: ID_Output;
+  userId: String;
+  hoursOfSleep: Float;
+  sleepQuality: Int;
+  trainingDay: Boolean;
+  fatigueLevel: Int;
+  mentalStress: Int;
+}
+
+export interface DayPreviousValuesPromise
+  extends Promise<DayPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  userId: () => Promise<String>;
+  hoursOfSleep: () => Promise<Float>;
+  sleepQuality: () => Promise<Int>;
+  trainingDay: () => Promise<Boolean>;
+  fatigueLevel: () => Promise<Int>;
+  mentalStress: () => Promise<Int>;
+}
+
+export interface DayPreviousValuesSubscription
+  extends Promise<AsyncIterator<DayPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  userId: () => Promise<AsyncIterator<String>>;
+  hoursOfSleep: () => Promise<AsyncIterator<Float>>;
+  sleepQuality: () => Promise<AsyncIterator<Int>>;
+  trainingDay: () => Promise<AsyncIterator<Boolean>>;
+  fatigueLevel: () => Promise<AsyncIterator<Int>>;
+  mentalStress: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -389,6 +1054,53 @@ export interface UserPreviousValuesSubscription
   password: () => Promise<AsyncIterator<String>>;
 }
 
+export interface sorenessDaySubscriptionPayload {
+  mutation: MutationType;
+  node: sorenessDay;
+  updatedFields: String[];
+  previousValues: sorenessDayPreviousValues;
+}
+
+export interface sorenessDaySubscriptionPayloadPromise
+  extends Promise<sorenessDaySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = sorenessDayPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = sorenessDayPreviousValuesPromise>() => T;
+}
+
+export interface sorenessDaySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<sorenessDaySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = sorenessDaySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = sorenessDayPreviousValuesSubscription>() => T;
+}
+
+export interface sorenessDayPreviousValues {
+  id: ID_Output;
+  bodyPart: String;
+  sorenessLevel: Int;
+}
+
+export interface sorenessDayPreviousValuesPromise
+  extends Promise<sorenessDayPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  bodyPart: () => Promise<String>;
+  sorenessLevel: () => Promise<Int>;
+}
+
+export interface sorenessDayPreviousValuesSubscription
+  extends Promise<AsyncIterator<sorenessDayPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  bodyPart: () => Promise<AsyncIterator<String>>;
+  sorenessLevel: () => Promise<AsyncIterator<Int>>;
+}
+
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
@@ -399,6 +1111,11 @@ export type ID_Output = string;
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+*/
+export type Float = number;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
@@ -419,6 +1136,14 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Day",
+    embedded: false
+  },
+  {
+    name: "sorenessDay",
     embedded: false
   }
 ];

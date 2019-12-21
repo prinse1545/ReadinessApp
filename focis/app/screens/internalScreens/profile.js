@@ -7,7 +7,8 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import { useQuery, query } from 'urql'
 import { Icon } from 'react-native-elements';
@@ -33,17 +34,10 @@ query($id: String!){
 }
 `
 
-const cards = [
-  {text: "Describe your level of soreness today"},
-  {text: "How well did you sleep last night?"},
-  {text: "How well did you eat today?"},
-  {text: "How well did you feel during your workout?"},
-  {text: "How hydrated were you through the day?"}
-]
 
 const Profile = ({navigation}) => {
 
-  const [questions, setQuestions] = useState([]);
+
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [image, setImage] = useState(null);
@@ -62,8 +56,6 @@ const Profile = ({navigation}) => {
       setName(name)
       setEmail(email)
     }
-
-    setQuestions(cards)
 
 
   })
@@ -95,27 +87,6 @@ const Profile = ({navigation}) => {
     );
   }
 
-  const pickImage = () => {
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = { uri: response.uri };
-
-        // You can also display the image using data:
-        // const source = { uri: response.data };
-        console.log(source)
-
-        // setImage(source)
-      }
-    });
-  }
 
   return (
     <View style={styles.container}>
@@ -128,32 +99,25 @@ const Profile = ({navigation}) => {
         />
       </TouchableOpacity>
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => pickImage()}>
-          <Image source={image} style={styles.profileImage} />
-        </TouchableOpacity>
         <View>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.email}>{email}</Text>
         </View>
       </View>
-      <View style={styles.questionsContainer}>
-        {
-          questions.length == 0 ?
-          <Text style={styles.noQuestionText}> No Questions at this Time</Text>
-          :
-          <Swiper showsButtons={false}>
-            {
-              questions.map((card) => {
-                return (
-                  <Card
-                   question={card.text}
-                  />
-                )
-              })
-            }
-          </Swiper>
-        }
-      </View>
+      <ScrollView contentContainerStyle={styles.questionsContainer}>
+        <Card
+          text="Rest & Readiness"
+        />
+        <Card
+          text="Fatigue"
+        />
+        <Card
+          text="Soreness"
+        />
+        <Card
+          text="Mental Stress"
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -198,8 +162,6 @@ const styles = StyleSheet.create({
   questionsContainer: {
     height: '40%',
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   noQuestionText: {
     fontFamily: "Avenir",

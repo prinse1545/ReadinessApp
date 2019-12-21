@@ -12,7 +12,6 @@ import {
 import Icon from 'react-native-elements';
 
 import Login from '../screens/externalScreens/login';
-import Setup from '../screens/externalScreens/setup';
 import AuthLoading from '../screens/externalScreens/authLoading';
 import Profile from '../screens/internalScreens/profile';
 import Settings from '../screens/internalScreens/settings';
@@ -20,8 +19,7 @@ import Settings from '../screens/internalScreens/settings';
 
 
 const AuthStack = createStackNavigator({
-  Login: { screen: Login, navigationOptions: { header: null } },
-  Setup: { screen: Setup, navigationOptions: { header: null } }
+  Login: { screen: Login, navigationOptions: { header: null } }
 
 });
 
