@@ -35,12 +35,12 @@ const Profile = ({navigation}) => {
   const [email, setEmail] = useState(null);
   const [image, setImage] = useState(null);
   const [value, setValue] = useState(null);
-  const userId = useSelector(state => state);
-  console.log(userId)
+  const userId = useSelector(state => state.user.id);
+
 
   const [result] = useQuery({
     query: getUser,
-    variables: {id: "ck2ru5gwt001e0701a4ekuf49"}
+    variables: {id: userId}
   });
 
   useEffect(() => {

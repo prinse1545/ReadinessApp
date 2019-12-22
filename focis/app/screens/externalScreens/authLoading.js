@@ -33,7 +33,7 @@ const AuthLoading = ({navigation}) => {
     }
     else if(result.data){
       setConnection("⚡Logging In⚡")
-      dispatch(() => setUserId(result.data.getUserId))
+      dispatch(setUserId(result.data.getUserId))
       navigation.navigate("App")
     }
 

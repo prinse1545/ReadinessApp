@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
-import reducer from '../reducers/user';
+import reducer from '../reducers';
 
 
 

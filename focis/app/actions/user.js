@@ -5,7 +5,7 @@ export const LOG_OUT = "LOG_OUT";
 
 export const setUserId = userId => {
   return (dispatch) => {
-    dispatch(logIn(user))
+    dispatch(setId(userId))
   }
 }
 export const clearUser = () => {
@@ -18,7 +18,7 @@ const logOut = () => ({
   type: LOG_OUT
 })
 
-const logIn = user => ({
+const setId = id => ({
   type: SET_USER_ID,
   id
 })

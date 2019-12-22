@@ -14,5 +14,7 @@ export default (state = initialState, action) => {
       return {...state, id: action.id}
     case LOG_OUT:
       return {...state, id: null, email: null}
+    default:
+      return state
   }
 }
