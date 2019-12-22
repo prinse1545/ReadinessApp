@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from '../../components/card/';
+import { Button } from 'react-native-elements';
 
 
 const getUser = `
@@ -120,6 +121,10 @@ const Profile = ({navigation}) => {
           text="Mental Stress"
           disabled={false}
         />
+        <Button
+          title="Submit"
+          buttonStyle={styles.button}
+        />
       </ScrollView>
     </View>
   );
@@ -176,8 +181,11 @@ const styles = StyleSheet.create({
     top: 40,
     right: 40
   },
-
-
+  button: {
+    marginTop: 10,
+    borderRadius: 10,
+    height: 70
+  }
 })
 
 
