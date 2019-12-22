@@ -113,6 +113,10 @@ const Profile = ({navigation}) => {
           disabled={false}
         />
         <Card
+          text="Nutrition"
+          disabled={false}
+        />
+        <Card
           text="Mental Stress"
           disabled={false}
         />
