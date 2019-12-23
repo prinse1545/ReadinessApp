@@ -11,11 +11,11 @@ import {
 
 const initialState = {
   hoursOfSleep: null,
-  sleepQuality: 1,
-  consecutiveSleep: false,
-  fatigueLevel: 1,
+  sleepQuality: null,
+  consecutiveSleep: null,
+  fatigueLevel: null,
   soreness: [],
-  mentalStressLevel: 1,
+  mentalStressLevel: null,
   gameDay: false
 }
 
