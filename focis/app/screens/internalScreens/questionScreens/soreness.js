@@ -34,7 +34,7 @@ const Soreness = ({navigation}) => {
   }
 
   return (
-    <View>
+    <View style={styles.firstContainer}>
       <View style={styles.topContainer}>
         <Text style={styles.instruction}>
           Select your the body part, level of soreness, and click add soreness
@@ -42,7 +42,7 @@ const Soreness = ({navigation}) => {
         </Text>
         <Picker
           selectedValue={bodyPart}
-          style={{height: 50, width: 150, top: 30, position: 'absolute'}}
+          style={styles.picker}
           itemStyle={{color: '#fff'}}
           onValueChange={(itemValue, itemIndex) =>
             setPart(itemValue)
@@ -100,10 +100,13 @@ const Soreness = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
+  firstContainer: {
+    backgroundColor: '#035096'
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   addSorenessButton: {
     borderRadius: 10
@@ -139,6 +142,12 @@ const styles = StyleSheet.create({
   addButton: {
     borderRadius: 10,
     marginTop: 20
+  },
+  picker: {
+    height: 50,
+    width: 150,
+    top: 30,
+    position: 'absolute'
   }
 })
 
