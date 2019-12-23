@@ -9,8 +9,14 @@ import {
 } from 'react-native';
 
 import { Button, Slider } from 'react-native-elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { setHoursOfSleep } from '../../../actions/day';
 
 const Readiness = ({navigation}) => {
+
+  const hours = useSelector(state => state.day.hoursOfSleep)
+  const dispatch = useDispatch()
+
   return (
     <View style={styles.container}>
       <View>
@@ -19,6 +25,7 @@ const Readiness = ({navigation}) => {
          placeholder="Hours of Sleep in the last 24 hours"
          placeholderTextColor='#035096'
          keyboardType="number-pad"
+         onChangeText={(text) => dispatch(setHoursOfSleep(text))}
         />
       </View>
       <View style={styles.quality}>
