@@ -15,6 +15,11 @@ import Login from '../screens/externalScreens/login';
 import AuthLoading from '../screens/externalScreens/authLoading';
 import Profile from '../screens/internalScreens/profile';
 import Settings from '../screens/internalScreens/settings';
+import Readiness from '../screens/internalScreens/questionScreens/readiness';
+import Fatigue from '../screens/internalScreens/questionScreens/fatigue';
+import Soreness from '../screens/internalScreens/questionScreens/soreness';
+import MentalStress from '../screens/internalScreens/questionScreens/mentalStress';
+import Nutrition from '../screens/internalScreens/questionScreens/nutrition';
 
 
 
@@ -25,7 +30,12 @@ const AuthStack = createStackNavigator({
 
 const HomeTabs = createStackNavigator({
   Profile: {screen: Profile, navigationOptions: { header: null }},
-  Settings: {screen: Settings, navigationOptions: { header: null }}
+  Settings: {screen: Settings, navigationOptions: { header: null }},
+  Readiness: {screen: Readiness, navigationOptions: { header: null }},
+  Fatigue: {screen: Fatigue, navigationOptions: { header: null }},
+  Soreness: {screen: Soreness, navigationOptions: { header: null }},
+  MentalStress: {screen: MentalStress, navigationOptions: { header: null }},
+  Nutrition: {screen: Nutrition, navigationOptions: { header: null }}
 });
 
 

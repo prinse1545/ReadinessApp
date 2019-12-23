@@ -13,7 +13,7 @@ const Card = ({text, onPress, disabled}) => {
 
   if(disabled) {
     return (
-      <TouchableOpacity style={styles.disabledContainer} onPress={onPress} disabled={disabled}>
+      <TouchableOpacity style={styles.disabledContainer} disabled={disabled}>
         <Text style={styles.question}>{text}</Text>
         <Icon
           name="keyboard-arrow-right"
@@ -31,6 +31,7 @@ const Card = ({text, onPress, disabled}) => {
           name="keyboard-arrow-right"
           size={36}
           color='#035096'
+          containerStyle={styles.iconContainer}
         />
       </TouchableOpacity>
     )
@@ -63,6 +64,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     opacity: 0.5
+  },
+  iconContainer: {
+    position: 'absolute',
+    right: 10
   }
 })
 

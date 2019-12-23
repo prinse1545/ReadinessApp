@@ -104,22 +104,27 @@ const Profile = ({navigation}) => {
         <Card
           text="Rest & Readiness"
           disabled={false}
+          onPress={() => navigation.navigate("Readiness")}
         />
         <Card
           text="Fatigue"
           disabled={false}
+          onPress={() => navigation.navigate("Fatigue")}
         />
         <Card
           text="Soreness"
           disabled={false}
+          onPress={() => navigation.navigate("Soreness")}
         />
         <Card
           text="Nutrition"
           disabled={false}
+          onPress={() => navigation.navigate("Nutrition")}
         />
         <Card
           text="Mental Stress"
           disabled={false}
+          onPress={() => navigation.navigate("MentalStress")}
         />
         <Button
           title="Submit"
