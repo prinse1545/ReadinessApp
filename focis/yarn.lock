@@ -4818,6 +4818,12 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-native-awesome-alerts@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-awesome-alerts/-/react-native-awesome-alerts-1.3.0.tgz#a4cc825471d295e8cfcd1e4ece06e549bc05e2af"
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-chart-kit@^3.11.0:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/react-native-chart-kit/-/react-native-chart-kit-3.11.0.tgz#ff62e168f224a0f282b762eb796e20ea61fd68a9"

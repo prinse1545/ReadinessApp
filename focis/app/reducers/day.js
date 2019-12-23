@@ -11,12 +11,12 @@ import {
 
 const initialState = {
   hoursOfSleep: null,
-  sleepQuality: null,
+  sleepQuality: 1,
   consecutiveSleep: false,
-  fatigueLevel: null,
+  fatigueLevel: 1,
   soreness: [],
-  mentalStressLevel: null,
-  gameDay: null
+  mentalStressLevel: 1,
+  gameDay: false
 }
 
 export default (state = initialState, action) => {

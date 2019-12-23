@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   View,
   StyleSheet,
   Text,
   TextInput,
-  Switch
+  Switch,
+  Keyboard,
+  TouchableOpacity
 } from 'react-native';
 
 import { Button, Slider } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
-import { setHoursOfSleep } from '../../../actions/day';
+import { setHoursOfSleep, setSleepQuality, setSleepConsecutive } from '../../../actions/day';
+import AwesomeAlert from 'react-native-awesome-alerts';
+
 
 const Readiness = ({navigation}) => {
 
-  const hours = useSelector(state => state.day.hoursOfSleep)
+  const day = useSelector(state => state.day)
   const dispatch = useDispatch()
+  const [alert, toggleAlert] = useState(false)
+
+  const finish = () => {
+    if(day.hoursOfSleep == null) {
+      toggleAlert(true)
+    }
+    else {
+      navigation.goBack()
+    }
+  }
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+     style={styles.container}
+     onPress={Keyboard.dismiss()}
+     activeOpacity={1}
+     >
       <View>
         <TextInput
          style={styles.sleepInput}
@@ -36,20 +54,41 @@ const Readiness = ({navigation}) => {
          maximumValue={5}
          minimumValue={1}
          step={1}
+         value={day.sleepQuality}
+         onValueChange={(value) => dispatch(setSleepQuality(value))}
          thumbTintColor='#035096'
          style={styles.slider}
         />
       </View>
       <View style={styles.consecutiveContainer}>
         <Text style={styles.consecutiveText}>Were the hours consecutive?</Text>
-        <Switch />
+        <Switch
+         value={day.consecutiveSleep}
+         onValueChange={(value) => dispatch(setSleepConsecutive(value))}
+        />
       </View>
       <Button
        title="Finish"
        containerStyle={styles.buttonContainer}
        buttonStyle={styles.button}
+       onPress={() => finish()}
       />
-    </View>
+      <AwesomeAlert
+        show={alert}
+        showProgress={false}
+        title="Invalid Input"
+        message="Please tell us how much you've slept in the last 24 hours"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={false}
+        showConfirmButton={true}
+        confirmText="Ok"
+        confirmButtonColor="#f00"
+        onConfirmPressed={() => {
+          toggleAlert(false)
+        }}
+      />
+    </TouchableOpacity>
   )
 }
 
@@ -57,7 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   quality: {
     marginTop: 30,
