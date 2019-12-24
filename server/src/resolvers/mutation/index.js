@@ -40,15 +40,24 @@ async function login(parent, args, context, info) {
   }
 }
 
-function createDay(parent, args, context, info) {
+async function createDay(parent, args, context, info) {
   const Authorization = context.request.get('Authorization')
 
   if(!Authorization) {
     throw new Error("Not Authenticated")
   }
 
-  context.prisma.createDay({ ...args })
-
+  args.soreness = JSON.parse(JSON.stringify(args.soreness))
+  const day = await context.prisma.createDay({
+    userId: args.userId,
+    hoursOfSleep: args.hoursOfSleep,
+    sleepQuality: args.sleepQuality,
+    trainingDay: args.trainingDay,
+    fatigueLevel: args.fatigueLevel,
+    soreness: {create: args.soreness},
+    mentalStress: args.mentalStress
+  })
+  return day
 }
 
 

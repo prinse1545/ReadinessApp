@@ -53,6 +53,16 @@ type sorenessDay {
   sorenessLevel: Int!
 }
 
+input DayCreateInput {
+  userId: String!,
+  hoursOfSleep: Float!,
+  sleepQuality: Int!,
+  trainingDay: Boolean!,
+  fatigueLevel: Int!,
+  soreness: [sorenessDayInput],
+  mentalStress: Int!
+}
+
 input sorenessDayInput {
   bodyPart: String!
   sorenessLevel: Int!
