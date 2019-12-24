@@ -17,7 +17,7 @@ import ImagePicker from 'react-native-image-picker';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from '../../components/card/';
 import { Button } from 'react-native-elements';
-
+import { clearUser } from '../../actions/user'
 
 const getUser = `
 query($id: String!){
@@ -37,7 +37,7 @@ const Profile = ({navigation}) => {
   const [image, setImage] = useState(null);
   const [value, setValue] = useState(null);
   const userId = useSelector(state => state.user.id);
-
+  const dispatch = useDispatch()
 
   const [result] = useQuery({
     query: getUser,
@@ -64,6 +64,7 @@ const Profile = ({navigation}) => {
 
 
     AsyncStorage.removeItem('focis-auth-token').then((res) => {
+      dispatch(clearUser())
       navigation.navigate("Auth")
     })
   }

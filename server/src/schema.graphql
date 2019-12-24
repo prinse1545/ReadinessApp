@@ -1,3 +1,5 @@
+
+
 type Query {
   users: [User!]!
   user(id: String!): User!
@@ -7,6 +9,15 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
+  createDay(
+    userId: String!,
+    hoursOfSleep: Float!,
+    sleepQuality: Int!,
+    trainingDay: Boolean!,
+    fatigueLevel: Int!,
+    soreness: [sorenessDayInput],
+    mentalStress: Int!
+  ): Day
 }
 
 type Subscription {
@@ -38,6 +49,11 @@ type Day {
 
 type sorenessDay {
   id: ID!
+  bodyPart: String!
+  sorenessLevel: Int!
+}
+
+input sorenessDayInput {
   bodyPart: String!
   sorenessLevel: Int!
 }

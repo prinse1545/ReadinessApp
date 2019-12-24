@@ -12,7 +12,7 @@ type Day {
   sleepQuality: Int!
   trainingDay: Boolean!
   fatigueLevel: Int!
-  soreness: [sorenessDay]
+  soreness: [sorenessDay!] @scalarList(strategy: RELATION)
   mentalStress: Int!
 }
 

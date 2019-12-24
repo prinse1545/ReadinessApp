@@ -14,7 +14,7 @@ import store from './config/store';
 
 let Navigation = createAppContainer(AppNavigator);
 
-
+//"http://142.93.11.179:4000"
 
 const App = (props) => {
 
@@ -29,7 +29,7 @@ const App = (props) => {
   })
 
   const client = createClient({
-    url: "http://142.93.11.179:4000",
+    url: "http://localhost:4000",
     fetchOptions: {
       headers: {
         Authorization: `${token}`,

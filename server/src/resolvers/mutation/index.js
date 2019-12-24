@@ -54,5 +54,6 @@ function createDay(parent, args, context, info) {
 
 module.exports = {
   signup,
-  login
+  login,
+  createDay
 }
