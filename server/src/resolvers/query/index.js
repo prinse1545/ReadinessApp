@@ -43,9 +43,15 @@ function users(parent, args, context, info) {
   return context.prisma.users()
 }
 
+function days(parent, args, context, info) {
+  return context.prisma.days()
+}
+
+
 
 module.exports = {
   users,
   user,
-  getUserId
+  getUserId,
+  days,
 }

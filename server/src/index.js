@@ -3,11 +3,13 @@ const { prisma } = require('./generated/prisma-client')
 const Query = require('./resolvers/query')
 const Mutation = require('./resolvers/mutation')
 const Subscription = require('./resolvers/subscription')
+const Day = require('./resolvers/day')
 
 const resolvers = {
   Query,
   Mutation,
   Subscription,
+  Day
 }
 
 const server = new GraphQLServer({

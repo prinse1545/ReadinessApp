@@ -4,6 +4,7 @@ type Query {
   users: [User!]!
   user(id: String!): User!
   getUserId: String!
+  days: [Day!]!
 }
 
 type Mutation {

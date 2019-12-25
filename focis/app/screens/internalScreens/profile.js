@@ -10,7 +10,7 @@ import {
   Alert,
   ScrollView
 } from 'react-native';
-import { useQuery, query } from 'urql'
+import { useQuery, query, useMutation } from 'urql'
 import { Icon } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-picker';
@@ -24,6 +24,30 @@ query($id: String!){
   user(id: $id) {
     name
     email
+  }
+}
+`
+
+const submitDay = `
+mutation(
+  $userId: String!,
+  $hoursOfSleep: Float!,
+  $sleepQuality: Int!,
+  $trainingDay: Boolean!,
+  $fatigueLevel: Int!,
+  $soreness: [sorenessDayInput]
+  $mentalStress: Int!
+) {
+	createDay(
+    userId: $userId,
+    hoursOfSleep: $hoursOfSleep,
+    sleepQuality: $sleepQuality,
+    trainingDay: $trainingDay,
+    fatigueLevel: $fatigueLevel,
+    soreness: $soreness,
+    mentalStress: $mentalStress
+  ) {
+    id
   }
 }
 `
@@ -43,6 +67,8 @@ const Profile = ({navigation}) => {
     query: getUser,
     variables: {id: userId}
   });
+
+  const [mutationResult, executeMutation] = useMutation(submitDay)
 
   useEffect(() => {
 
@@ -82,6 +108,10 @@ const Profile = ({navigation}) => {
       ],
       {cancelable: false},
     );
+  }
+
+  const onSubmit = () => {
+
   }
 
 
