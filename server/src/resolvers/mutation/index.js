@@ -1,42 +1,42 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { APP_SECRET, getUserId } = require('../../utils')
+const { APP_SECRET, getPlayerId } = require('../../utils')
 
 async function signup(parent, args, context, info) {
   // 1
   const password = await bcrypt.hash(args.password, 10)
   // 2
-  const user = await context.prisma.createUser({ ...args, password })
+  const player = await context.prisma.createPlayer({ ...args, password })
 
   // 3
-  const token = jwt.sign({ userId: user.id }, APP_SECRET)
+  const token = jwt.sign({ playerId: player.id }, APP_SECRET)
 
   // 4
   return {
     token,
-    user,
+    player,
   }
 }
 
 async function login(parent, args, context, info) {
   // 1
-  const user = await context.prisma.user({ email: args.email })
-  if (!user) {
-    throw new Error('No such user found')
+  const player = await context.prisma.player({ email: args.email })
+  if (!player) {
+    throw new Error('No such player found')
   }
 
   // 2
-  const valid = await bcrypt.compare(args.password, user.password)
+  const valid = await bcrypt.compare(args.password, player.password)
   if (!valid) {
     throw new Error('Invalid password')
   }
 
-  const token = jwt.sign({ userId: user.id }, APP_SECRET)
+  const token = jwt.sign({ playerId: player.id }, APP_SECRET)
 
   // 3
   return {
     token,
-    user,
+    player,
   }
 }
 
@@ -49,7 +49,7 @@ async function createDay(parent, args, context, info) {
 
   args.soreness = JSON.parse(JSON.stringify(args.soreness))
   const day = await context.prisma.createDay({
-    userId: args.userId,
+    playerId: args.playerId,
     hoursOfSleep: args.hoursOfSleep,
     sleepQuality: args.sleepQuality,
     trainingDay: args.trainingDay,

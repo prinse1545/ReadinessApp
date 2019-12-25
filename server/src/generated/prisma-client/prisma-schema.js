@@ -7,11 +7,11 @@ module.exports = {
   count: Int!
 }
 
-type AggregatesorenessDay {
+type AggregatePlayer {
   count: Int!
 }
 
-type AggregateUser {
+type AggregatesorenessDay {
   count: Int!
 }
 
@@ -21,7 +21,7 @@ type BatchPayload {
 
 type Day {
   id: ID!
-  userId: String!
+  playerId: String!
   hoursOfSleep: Float!
   sleepQuality: Int!
   trainingDay: Boolean!
@@ -38,7 +38,7 @@ type DayConnection {
 
 input DayCreateInput {
   id: ID
-  userId: String!
+  playerId: String!
   hoursOfSleep: Float!
   sleepQuality: Int!
   trainingDay: Boolean!
@@ -55,8 +55,8 @@ type DayEdge {
 enum DayOrderByInput {
   id_ASC
   id_DESC
-  userId_ASC
-  userId_DESC
+  playerId_ASC
+  playerId_DESC
   hoursOfSleep_ASC
   hoursOfSleep_DESC
   sleepQuality_ASC
@@ -71,7 +71,7 @@ enum DayOrderByInput {
 
 type DayPreviousValues {
   id: ID!
-  userId: String!
+  playerId: String!
   hoursOfSleep: Float!
   sleepQuality: Int!
   trainingDay: Boolean!
@@ -98,7 +98,7 @@ input DaySubscriptionWhereInput {
 }
 
 input DayUpdateInput {
-  userId: String
+  playerId: String
   hoursOfSleep: Float
   sleepQuality: Int
   trainingDay: Boolean
@@ -108,7 +108,7 @@ input DayUpdateInput {
 }
 
 input DayUpdateManyMutationInput {
-  userId: String
+  playerId: String
   hoursOfSleep: Float
   sleepQuality: Int
   trainingDay: Boolean
@@ -131,20 +131,20 @@ input DayWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  userId: String
-  userId_not: String
-  userId_in: [String!]
-  userId_not_in: [String!]
-  userId_lt: String
-  userId_lte: String
-  userId_gt: String
-  userId_gte: String
-  userId_contains: String
-  userId_not_contains: String
-  userId_starts_with: String
-  userId_not_starts_with: String
-  userId_ends_with: String
-  userId_not_ends_with: String
+  playerId: String
+  playerId_not: String
+  playerId_in: [String!]
+  playerId_not_in: [String!]
+  playerId_lt: String
+  playerId_lte: String
+  playerId_gt: String
+  playerId_gte: String
+  playerId_contains: String
+  playerId_not_contains: String
+  playerId_starts_with: String
+  playerId_not_starts_with: String
+  playerId_ends_with: String
+  playerId_not_ends_with: String
   hoursOfSleep: Float
   hoursOfSleep_not: Float
   hoursOfSleep_in: [Float!]
@@ -200,12 +200,12 @@ type Mutation {
   upsertDay(where: DayWhereUniqueInput!, create: DayCreateInput!, update: DayUpdateInput!): Day!
   deleteDay(where: DayWhereUniqueInput!): Day
   deleteManyDays(where: DayWhereInput): BatchPayload!
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createPlayer(data: PlayerCreateInput!): Player!
+  updatePlayer(data: PlayerUpdateInput!, where: PlayerWhereUniqueInput!): Player
+  updateManyPlayers(data: PlayerUpdateManyMutationInput!, where: PlayerWhereInput): BatchPayload!
+  upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
+  deletePlayer(where: PlayerWhereUniqueInput!): Player
+  deleteManyPlayers(where: PlayerWhereInput): BatchPayload!
   createsorenessDay(data: sorenessDayCreateInput!): sorenessDay!
   updatesorenessDay(data: sorenessDayUpdateInput!, where: sorenessDayWhereUniqueInput!): sorenessDay
   updateManysorenessDays(data: sorenessDayUpdateManyMutationInput!, where: sorenessDayWhereInput): BatchPayload!
@@ -231,13 +231,153 @@ type PageInfo {
   endCursor: String
 }
 
+type Player {
+  id: ID!
+  email: String!
+  name: String!
+  password: String!
+}
+
+type PlayerConnection {
+  pageInfo: PageInfo!
+  edges: [PlayerEdge]!
+  aggregate: AggregatePlayer!
+}
+
+input PlayerCreateInput {
+  id: ID
+  email: String!
+  name: String!
+  password: String!
+}
+
+type PlayerEdge {
+  node: Player!
+  cursor: String!
+}
+
+enum PlayerOrderByInput {
+  id_ASC
+  id_DESC
+  email_ASC
+  email_DESC
+  name_ASC
+  name_DESC
+  password_ASC
+  password_DESC
+}
+
+type PlayerPreviousValues {
+  id: ID!
+  email: String!
+  name: String!
+  password: String!
+}
+
+type PlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: Player
+  updatedFields: [String!]
+  previousValues: PlayerPreviousValues
+}
+
+input PlayerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PlayerWhereInput
+  AND: [PlayerSubscriptionWhereInput!]
+  OR: [PlayerSubscriptionWhereInput!]
+  NOT: [PlayerSubscriptionWhereInput!]
+}
+
+input PlayerUpdateInput {
+  email: String
+  name: String
+  password: String
+}
+
+input PlayerUpdateManyMutationInput {
+  email: String
+  name: String
+  password: String
+}
+
+input PlayerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  AND: [PlayerWhereInput!]
+  OR: [PlayerWhereInput!]
+  NOT: [PlayerWhereInput!]
+}
+
+input PlayerWhereUniqueInput {
+  id: ID
+  email: String
+}
+
 type Query {
   day(where: DayWhereUniqueInput!): Day
   days(where: DayWhereInput, orderBy: DayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Day]!
   daysConnection(where: DayWhereInput, orderBy: DayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DayConnection!
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  player(where: PlayerWhereUniqueInput!): Player
+  players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player]!
+  playersConnection(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlayerConnection!
   sorenessDay(where: sorenessDayWhereUniqueInput!): sorenessDay
   sorenessDays(where: sorenessDayWhereInput, orderBy: sorenessDayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [sorenessDay]!
   sorenessDaysConnection(where: sorenessDayWhereInput, orderBy: sorenessDayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): sorenessDayConnection!
@@ -443,148 +583,8 @@ input sorenessDayWhereUniqueInput {
 
 type Subscription {
   day(where: DaySubscriptionWhereInput): DaySubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
   sorenessDay(where: sorenessDaySubscriptionWhereInput): sorenessDaySubscriptionPayload
-}
-
-type User {
-  id: ID!
-  email: String!
-  name: String!
-  password: String!
-}
-
-type UserConnection {
-  pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
-}
-
-input UserCreateInput {
-  id: ID
-  email: String!
-  name: String!
-  password: String!
-}
-
-type UserEdge {
-  node: User!
-  cursor: String!
-}
-
-enum UserOrderByInput {
-  id_ASC
-  id_DESC
-  email_ASC
-  email_DESC
-  name_ASC
-  name_DESC
-  password_ASC
-  password_DESC
-}
-
-type UserPreviousValues {
-  id: ID!
-  email: String!
-  name: String!
-  password: String!
-}
-
-type UserSubscriptionPayload {
-  mutation: MutationType!
-  node: User
-  updatedFields: [String!]
-  previousValues: UserPreviousValues
-}
-
-input UserSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
-  OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
-}
-
-input UserUpdateInput {
-  email: String
-  name: String
-  password: String
-}
-
-input UserUpdateManyMutationInput {
-  email: String
-  name: String
-  password: String
-}
-
-input UserWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  password: String
-  password_not: String
-  password_in: [String!]
-  password_not_in: [String!]
-  password_lt: String
-  password_lte: String
-  password_gt: String
-  password_gte: String
-  password_contains: String
-  password_not_contains: String
-  password_starts_with: String
-  password_not_starts_with: String
-  password_ends_with: String
-  password_not_ends_with: String
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-}
-
-input UserWhereUniqueInput {
-  id: ID
-  email: String
 }
 `
       }

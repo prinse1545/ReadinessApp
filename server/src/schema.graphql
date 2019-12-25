@@ -1,9 +1,9 @@
 
 
 type Query {
-  users: [User!]!
-  user(id: String!): User!
-  getUserId: String!
+  players: [Player!]!
+  player(id: String!): Player!
+  getPlayerId: String!
   days: [Day!]!
 }
 
@@ -11,7 +11,7 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
   createDay(
-    userId: String!,
+    playerId: String!,
     hoursOfSleep: Float!,
     sleepQuality: Int!,
     trainingDay: Boolean!,
@@ -22,16 +22,16 @@ type Mutation {
 }
 
 type Subscription {
-  newUser: User
+  newPlayer: Player
 }
 
 
 type AuthPayload {
   token: String
-  user: User
+  player: Player
 }
 
-type User {
+type Player {
   id: ID!
   name: String!
   email: String!
@@ -39,7 +39,7 @@ type User {
 
 type Day {
   id: ID!
-  userId: String!
+  playerId: String!
   hoursOfSleep: Float!
   sleepQuality: Int!
   trainingDay: Boolean!
@@ -55,7 +55,7 @@ type sorenessDay {
 }
 
 input DayCreateInput {
-  userId: String!,
+  playerId: String!,
   hoursOfSleep: Float!,
   sleepQuality: Int!,
   trainingDay: Boolean!,

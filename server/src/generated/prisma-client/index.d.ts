@@ -17,7 +17,7 @@ export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
   day: (where?: DayWhereInput) => Promise<boolean>;
-  user: (where?: UserWhereInput) => Promise<boolean>;
+  player: (where?: PlayerWhereInput) => Promise<boolean>;
   sorenessDay: (where?: sorenessDayWhereInput) => Promise<boolean>;
 }
 
@@ -59,25 +59,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => DayConnectionPromise;
-  user: (where: UserWhereUniqueInput) => UserNullablePromise;
-  users: (args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
+  player: (where: PlayerWhereUniqueInput) => PlayerNullablePromise;
+  players: (args?: {
+    where?: PlayerWhereInput;
+    orderBy?: PlayerOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<User>;
-  usersConnection: (args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
+  }) => FragmentableArray<Player>;
+  playersConnection: (args?: {
+    where?: PlayerWhereInput;
+    orderBy?: PlayerOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => UserConnectionPromise;
+  }) => PlayerConnectionPromise;
   sorenessDay: (
     where: sorenessDayWhereUniqueInput
   ) => sorenessDayNullablePromise;
@@ -121,22 +121,22 @@ export interface Prisma {
   }) => DayPromise;
   deleteDay: (where: DayWhereUniqueInput) => DayPromise;
   deleteManyDays: (where?: DayWhereInput) => BatchPayloadPromise;
-  createUser: (data: UserCreateInput) => UserPromise;
-  updateUser: (args: {
-    data: UserUpdateInput;
-    where: UserWhereUniqueInput;
-  }) => UserPromise;
-  updateManyUsers: (args: {
-    data: UserUpdateManyMutationInput;
-    where?: UserWhereInput;
+  createPlayer: (data: PlayerCreateInput) => PlayerPromise;
+  updatePlayer: (args: {
+    data: PlayerUpdateInput;
+    where: PlayerWhereUniqueInput;
+  }) => PlayerPromise;
+  updateManyPlayers: (args: {
+    data: PlayerUpdateManyMutationInput;
+    where?: PlayerWhereInput;
   }) => BatchPayloadPromise;
-  upsertUser: (args: {
-    where: UserWhereUniqueInput;
-    create: UserCreateInput;
-    update: UserUpdateInput;
-  }) => UserPromise;
-  deleteUser: (where: UserWhereUniqueInput) => UserPromise;
-  deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  upsertPlayer: (args: {
+    where: PlayerWhereUniqueInput;
+    create: PlayerCreateInput;
+    update: PlayerUpdateInput;
+  }) => PlayerPromise;
+  deletePlayer: (where: PlayerWhereUniqueInput) => PlayerPromise;
+  deleteManyPlayers: (where?: PlayerWhereInput) => BatchPayloadPromise;
   createsorenessDay: (data: sorenessDayCreateInput) => sorenessDayPromise;
   updatesorenessDay: (args: {
     data: sorenessDayUpdateInput;
@@ -167,9 +167,9 @@ export interface Subscription {
   day: (
     where?: DaySubscriptionWhereInput
   ) => DaySubscriptionPayloadSubscription;
-  user: (
-    where?: UserSubscriptionWhereInput
-  ) => UserSubscriptionPayloadSubscription;
+  player: (
+    where?: PlayerSubscriptionWhereInput
+  ) => PlayerSubscriptionPayloadSubscription;
   sorenessDay: (
     where?: sorenessDaySubscriptionWhereInput
   ) => sorenessDaySubscriptionPayloadSubscription;
@@ -194,8 +194,8 @@ export type sorenessDayOrderByInput =
 export type DayOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "userId_ASC"
-  | "userId_DESC"
+  | "playerId_ASC"
+  | "playerId_DESC"
   | "hoursOfSleep_ASC"
   | "hoursOfSleep_DESC"
   | "sleepQuality_ASC"
@@ -207,7 +207,7 @@ export type DayOrderByInput =
   | "mentalStress_ASC"
   | "mentalStress_DESC";
 
-export type UserOrderByInput =
+export type PlayerOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "email_ASC"
@@ -280,20 +280,20 @@ export interface DayWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  userId?: Maybe<String>;
-  userId_not?: Maybe<String>;
-  userId_in?: Maybe<String[] | String>;
-  userId_not_in?: Maybe<String[] | String>;
-  userId_lt?: Maybe<String>;
-  userId_lte?: Maybe<String>;
-  userId_gt?: Maybe<String>;
-  userId_gte?: Maybe<String>;
-  userId_contains?: Maybe<String>;
-  userId_not_contains?: Maybe<String>;
-  userId_starts_with?: Maybe<String>;
-  userId_not_starts_with?: Maybe<String>;
-  userId_ends_with?: Maybe<String>;
-  userId_not_ends_with?: Maybe<String>;
+  playerId?: Maybe<String>;
+  playerId_not?: Maybe<String>;
+  playerId_in?: Maybe<String[] | String>;
+  playerId_not_in?: Maybe<String[] | String>;
+  playerId_lt?: Maybe<String>;
+  playerId_lte?: Maybe<String>;
+  playerId_gt?: Maybe<String>;
+  playerId_gte?: Maybe<String>;
+  playerId_contains?: Maybe<String>;
+  playerId_not_contains?: Maybe<String>;
+  playerId_starts_with?: Maybe<String>;
+  playerId_not_starts_with?: Maybe<String>;
+  playerId_ends_with?: Maybe<String>;
+  playerId_not_ends_with?: Maybe<String>;
   hoursOfSleep?: Maybe<Float>;
   hoursOfSleep_not?: Maybe<Float>;
   hoursOfSleep_in?: Maybe<Float[] | Float>;
@@ -336,12 +336,12 @@ export interface DayWhereInput {
   NOT?: Maybe<DayWhereInput[] | DayWhereInput>;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export type PlayerWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
 }>;
 
-export interface UserWhereInput {
+export interface PlayerWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -398,9 +398,9 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
-  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
-  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
-  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
+  AND?: Maybe<PlayerWhereInput[] | PlayerWhereInput>;
+  OR?: Maybe<PlayerWhereInput[] | PlayerWhereInput>;
+  NOT?: Maybe<PlayerWhereInput[] | PlayerWhereInput>;
 }
 
 export type sorenessDayWhereUniqueInput = AtLeastOne<{
@@ -409,7 +409,7 @@ export type sorenessDayWhereUniqueInput = AtLeastOne<{
 
 export interface DayCreateInput {
   id?: Maybe<ID_Input>;
-  userId: String;
+  playerId: String;
   hoursOfSleep: Float;
   sleepQuality: Int;
   trainingDay: Boolean;
@@ -430,7 +430,7 @@ export interface sorenessDayCreateInput {
 }
 
 export interface DayUpdateInput {
-  userId?: Maybe<String>;
+  playerId?: Maybe<String>;
   hoursOfSleep?: Maybe<Float>;
   sleepQuality?: Maybe<Int>;
   trainingDay?: Maybe<Boolean>;
@@ -533,7 +533,7 @@ export interface sorenessDayUpdateManyDataInput {
 }
 
 export interface DayUpdateManyMutationInput {
-  userId?: Maybe<String>;
+  playerId?: Maybe<String>;
   hoursOfSleep?: Maybe<Float>;
   sleepQuality?: Maybe<Int>;
   trainingDay?: Maybe<Boolean>;
@@ -541,20 +541,20 @@ export interface DayUpdateManyMutationInput {
   mentalStress?: Maybe<Int>;
 }
 
-export interface UserCreateInput {
+export interface PlayerCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
   name: String;
   password: String;
 }
 
-export interface UserUpdateInput {
+export interface PlayerUpdateInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
   password?: Maybe<String>;
 }
 
-export interface UserUpdateManyMutationInput {
+export interface PlayerUpdateManyMutationInput {
   email?: Maybe<String>;
   name?: Maybe<String>;
   password?: Maybe<String>;
@@ -581,15 +581,15 @@ export interface DaySubscriptionWhereInput {
   NOT?: Maybe<DaySubscriptionWhereInput[] | DaySubscriptionWhereInput>;
 }
 
-export interface UserSubscriptionWhereInput {
+export interface PlayerSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  node?: Maybe<PlayerWhereInput>;
+  AND?: Maybe<PlayerSubscriptionWhereInput[] | PlayerSubscriptionWhereInput>;
+  OR?: Maybe<PlayerSubscriptionWhereInput[] | PlayerSubscriptionWhereInput>;
+  NOT?: Maybe<PlayerSubscriptionWhereInput[] | PlayerSubscriptionWhereInput>;
 }
 
 export interface sorenessDaySubscriptionWhereInput {
@@ -615,7 +615,7 @@ export interface NodeNode {
 
 export interface Day {
   id: ID_Output;
-  userId: String;
+  playerId: String;
   hoursOfSleep: Float;
   sleepQuality: Int;
   trainingDay: Boolean;
@@ -625,7 +625,7 @@ export interface Day {
 
 export interface DayPromise extends Promise<Day>, Fragmentable {
   id: () => Promise<ID_Output>;
-  userId: () => Promise<String>;
+  playerId: () => Promise<String>;
   hoursOfSleep: () => Promise<Float>;
   sleepQuality: () => Promise<Int>;
   trainingDay: () => Promise<Boolean>;
@@ -646,7 +646,7 @@ export interface DaySubscription
   extends Promise<AsyncIterator<Day>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  userId: () => Promise<AsyncIterator<String>>;
+  playerId: () => Promise<AsyncIterator<String>>;
   hoursOfSleep: () => Promise<AsyncIterator<Float>>;
   sleepQuality: () => Promise<AsyncIterator<Int>>;
   trainingDay: () => Promise<AsyncIterator<Boolean>>;
@@ -665,7 +665,7 @@ export interface DaySubscription
 
 export interface DayNullablePromise extends Promise<Day | null>, Fragmentable {
   id: () => Promise<ID_Output>;
-  userId: () => Promise<String>;
+  playerId: () => Promise<String>;
   hoursOfSleep: () => Promise<Float>;
   sleepQuality: () => Promise<Int>;
   trainingDay: () => Promise<Boolean>;
@@ -787,22 +787,22 @@ export interface AggregateDaySubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface User {
+export interface Player {
   id: ID_Output;
   email: String;
   name: String;
   password: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface PlayerPromise extends Promise<Player>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   name: () => Promise<String>;
   password: () => Promise<String>;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface PlayerSubscription
+  extends Promise<AsyncIterator<Player>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
@@ -810,8 +810,8 @@ export interface UserSubscription
   password: () => Promise<AsyncIterator<String>>;
 }
 
-export interface UserNullablePromise
-  extends Promise<User | null>,
+export interface PlayerNullablePromise
+  extends Promise<Player | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
@@ -819,56 +819,56 @@ export interface UserNullablePromise
   password: () => Promise<String>;
 }
 
-export interface UserConnection {
+export interface PlayerConnection {
   pageInfo: PageInfo;
-  edges: UserEdge[];
+  edges: PlayerEdge[];
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface PlayerConnectionPromise
+  extends Promise<PlayerConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<PlayerEdge>>() => T;
+  aggregate: <T = AggregatePlayerPromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface PlayerConnectionSubscription
+  extends Promise<AsyncIterator<PlayerConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PlayerEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePlayerSubscription>() => T;
 }
 
-export interface UserEdge {
-  node: User;
+export interface PlayerEdge {
+  node: Player;
   cursor: String;
 }
 
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
+export interface PlayerEdgePromise extends Promise<PlayerEdge>, Fragmentable {
+  node: <T = PlayerPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface PlayerEdgeSubscription
+  extends Promise<AsyncIterator<PlayerEdge>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
+  node: <T = PlayerSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateUser {
+export interface AggregatePlayer {
   count: Int;
 }
 
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
+export interface AggregatePlayerPromise
+  extends Promise<AggregatePlayer>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
+export interface AggregatePlayerSubscription
+  extends Promise<AsyncIterator<AggregatePlayer>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -972,7 +972,7 @@ export interface DaySubscriptionPayloadSubscription
 
 export interface DayPreviousValues {
   id: ID_Output;
-  userId: String;
+  playerId: String;
   hoursOfSleep: Float;
   sleepQuality: Int;
   trainingDay: Boolean;
@@ -984,7 +984,7 @@ export interface DayPreviousValuesPromise
   extends Promise<DayPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  userId: () => Promise<String>;
+  playerId: () => Promise<String>;
   hoursOfSleep: () => Promise<Float>;
   sleepQuality: () => Promise<Int>;
   trainingDay: () => Promise<Boolean>;
@@ -996,7 +996,7 @@ export interface DayPreviousValuesSubscription
   extends Promise<AsyncIterator<DayPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  userId: () => Promise<AsyncIterator<String>>;
+  playerId: () => Promise<AsyncIterator<String>>;
   hoursOfSleep: () => Promise<AsyncIterator<Float>>;
   sleepQuality: () => Promise<AsyncIterator<Int>>;
   trainingDay: () => Promise<AsyncIterator<Boolean>>;
@@ -1004,40 +1004,40 @@ export interface DayPreviousValuesSubscription
   mentalStress: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface UserSubscriptionPayload {
+export interface PlayerSubscriptionPayload {
   mutation: MutationType;
-  node: User;
+  node: Player;
   updatedFields: String[];
-  previousValues: UserPreviousValues;
+  previousValues: PlayerPreviousValues;
 }
 
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface PlayerSubscriptionPayloadPromise
+  extends Promise<PlayerSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
+  node: <T = PlayerPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
+  previousValues: <T = PlayerPreviousValuesPromise>() => T;
 }
 
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+export interface PlayerSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PlayerSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
+  node: <T = PlayerSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  previousValues: <T = PlayerPreviousValuesSubscription>() => T;
 }
 
-export interface UserPreviousValues {
+export interface PlayerPreviousValues {
   id: ID_Output;
   email: String;
   name: String;
   password: String;
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
+export interface PlayerPreviousValuesPromise
+  extends Promise<PlayerPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
@@ -1045,8 +1045,8 @@ export interface UserPreviousValuesPromise
   password: () => Promise<String>;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface PlayerPreviousValuesSubscription
+  extends Promise<AsyncIterator<PlayerPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
@@ -1135,7 +1135,7 @@ export type Long = string;
 
 export const models: Model[] = [
   {
-    name: "User",
+    name: "Player",
     embedded: false
   },
   {

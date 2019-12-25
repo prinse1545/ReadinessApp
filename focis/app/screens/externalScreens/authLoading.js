@@ -17,7 +17,7 @@ const AuthLoading = ({navigation}) => {
   const [connection, setConnection] = useState(null);
   const dispatch = useDispatch();
   const [result] = useQuery({
-    query: `{ getUserId }`
+    query: `{ getPlayerId }`
   })
 
 
@@ -33,7 +33,7 @@ const AuthLoading = ({navigation}) => {
     }
     else if(result.data){
       setConnection("⚡Logging In⚡")
-      dispatch(setUserId(result.data.getUserId))
+      dispatch(setUserId(result.data.getPlayerId))
       navigation.navigate("App")
     }
 

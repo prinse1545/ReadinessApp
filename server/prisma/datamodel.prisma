@@ -1,4 +1,4 @@
-type User {
+type Player {
   id: ID! @id
   email: String! @unique
   name: String!
@@ -7,7 +7,7 @@ type User {
 
 type Day {
   id: ID! @id
-  userId: String!
+  playerId: String!
   hoursOfSleep: Float!
   sleepQuality: Int!
   trainingDay: Boolean!

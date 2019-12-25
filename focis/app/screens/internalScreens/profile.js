@@ -21,7 +21,7 @@ import { clearUser } from '../../actions/user'
 
 const getUser = `
 query($id: String!){
-  user(id: $id) {
+  player(id: $id) {
     name
     email
   }
@@ -30,7 +30,7 @@ query($id: String!){
 
 const submitDay = `
 mutation(
-  $userId: String!,
+  $playerId: String!,
   $hoursOfSleep: Float!,
   $sleepQuality: Int!,
   $trainingDay: Boolean!,
@@ -39,7 +39,7 @@ mutation(
   $mentalStress: Int!
 ) {
 	createDay(
-    userId: $userId,
+    playerId: $playerId,
     hoursOfSleep: $hoursOfSleep,
     sleepQuality: $sleepQuality,
     trainingDay: $trainingDay,
@@ -74,7 +74,7 @@ const Profile = ({navigation}) => {
 
 
     if(result.data) {
-      const { name, email } = result.data.user;
+      const { name, email } = result.data.player;
       setName(name)
       setEmail(email)
     }
